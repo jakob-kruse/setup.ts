@@ -32,7 +32,7 @@ export class SetupBuilder {
 
     const pluginChanges = await Promise.all(this.pluginQueue);
 
-    let newConfig = structuredClone(this.config);
+    let newConfig = this.config;
 
     for (const pluginChange of pluginChanges) {
       newConfig = Object.assign(newConfig, pluginChange);
