@@ -13,14 +13,22 @@
     "test": {
       "dependsOn": [
         "^build"
+      ],
+      "outputs": [
+        "**/__snapshots__/**"
       ]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "dev": {
       "dependsOn": [
         "^build"
       ],
       "cache": false
     }
+    
   }
 }

@@ -1,6 +1,7 @@
 {
-  "name": "pkgts",
-  "version": "0.0.0",
+  "name": "@setup.ts/monorepo",
+  "version": "0.0.1",
+  "description": "Write your package.json in typescript",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -9,15 +10,18 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "ci": "turbo run build lint test",
     "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
-    "turbo": "latest",
-    "xo": "^0.50.0"
+    "eslint": "^8.17.0",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "^2.5.1",
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@7.1.7"
+  "packageManager": "pnpm@7.2.0"
 }

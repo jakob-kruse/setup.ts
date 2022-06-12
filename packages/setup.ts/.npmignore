@@ -2,3 +2,6 @@ src/
 .gitignore
 tsconfig.json
 pnpm-lock.yaml
+.turbo
+tsup.config.ts
+vitest.config.ts
