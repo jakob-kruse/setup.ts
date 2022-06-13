@@ -2,7 +2,7 @@ import { definePlugin } from "@";
 import { SetupBuilder, SetupBuilderInternal } from "@/setup";
 import { PackageJson } from "@/types/package-json";
 import { describe, expect, it } from "vitest";
-import { basicSetup, emptyPlugin } from "./util";
+import { basicSetup } from "./util";
 
 describe("SetupBuilder", () => {
   describe("defineSetup()", () => {

@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { bundleRequire } from "bundle-require";
 import { PackageJson, PackageJsonSchema } from "./types/package-json";
-import type {
-  SetupPluginBuilder,
-  SetupPluginDefinition,
-  SetupPluginResult,
-} from "@/plugin";
+import type { SetupPluginBuilder, SetupPluginResult } from "@/plugin";
 import { promises as fs } from "fs";
 import path from "path";
 

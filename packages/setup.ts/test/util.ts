@@ -1,4 +1,5 @@
-import { definePlugin, defineSetup, SetupBuilder } from "@";
+import { definePlugin } from "@";
+import { defineSetup, SetupBuilder } from "@/setup";
 import { PackageJson } from "@/types/package-json";
 
 export const basicSetup = (
