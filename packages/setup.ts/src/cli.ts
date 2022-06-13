@@ -3,7 +3,7 @@
 import cac from "cac";
 import { promises as fs } from "fs";
 import { join } from "path";
-import { compile } from "@/setup";
+import { compileSetupFile } from "@/setup";
 
 const cli = cac("pkgts");
 
@@ -22,7 +22,7 @@ cli
       return;
     }
 
-    const compiled = await compile(packageTsPath);
+    const compiled = await compileSetupFile(packageTsPath);
 
     await fs.writeFile(
       join(process.cwd(), options.out),

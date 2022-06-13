@@ -1,4 +1,8 @@
 export { definePlugin } from "@/plugin";
-export type { Plugin, PluginBuilder, PluginDefinition } from "@/plugin";
-export { defineSetup, compile } from "@/setup";
+export type {
+  SetupPlugin,
+  SetupPluginBuilder as PluginBuilder,
+  SetupPluginDefinition as PluginDefinition,
+} from "@/plugin";
+export { defineSetup, compileSetupFile as compile } from "@/setup";
 export type { DefineSetupOptions, SetupBuilder } from "@/setup";

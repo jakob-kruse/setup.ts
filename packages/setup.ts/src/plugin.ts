@@ -2,18 +2,18 @@ import { DefineSetupOptions } from "@/setup";
 import { PackageJson } from "@/types/package-json";
 import { MaybePromise } from "@/types/util";
 
-export type PluginBuilder = MaybePromise<Partial<PackageJson>>;
+export type SetupPluginBuilder = MaybePromise<Partial<PackageJson>>;
 
-export type PluginDefinition<TPluginConfig> = (
-  config: TPluginConfig,
+export type SetupPluginDefinition<TSetupPluginConfig> = (
+  config: TSetupPluginConfig,
   options: DefineSetupOptions
-) => PluginBuilder;
+) => SetupPluginBuilder;
 
-export type Plugin = (options: DefineSetupOptions) => PluginBuilder;
+export type SetupPlugin = (options: DefineSetupOptions) => SetupPluginBuilder;
 
 export function definePlugin<TPluginConfig = unknown>(
-  builder: PluginDefinition<TPluginConfig>
-): (config: TPluginConfig) => Plugin {
+  builder: SetupPluginDefinition<TPluginConfig>
+): (config: TPluginConfig) => SetupPlugin {
   return (config: TPluginConfig) => (options: DefineSetupOptions) =>
     builder(config, options);
 }

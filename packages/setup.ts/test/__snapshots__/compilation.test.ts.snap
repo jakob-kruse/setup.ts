@@ -1,0 +1,41 @@
+// Vitest Snapshot v1
+
+exports[`Compilation > basic > should compile sync 1`] = `
+{
+  "description": "test-desc",
+  "name": "test-name",
+  "version": "1.0.0",
+}
+`;
+
+exports[`Compilation > plugins > should be chaining plugins > plugin-chaining 1`] = `
+{
+  "bugs": {
+    "email": "test@test.de",
+  },
+  "description": "changed by test plugin 2",
+  "name": "test-name",
+  "version": "1.0.0",
+}
+`;
+
+exports[`Compilation > plugins > should deep merge with the plugin result > plugin-deep-merge 1`] = `
+{
+  "description": "test-desc",
+  "name": "test-name",
+  "version": "1.1.2",
+}
+`;
+
+exports[`Compilation > validation > should validate the package 1`] = `
+[ZodError: [
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "name must be a valid npm package name",
+    "path": [
+      "name"
+    ]
+  }
+]]
+`;

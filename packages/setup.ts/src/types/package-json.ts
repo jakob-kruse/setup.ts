@@ -37,12 +37,15 @@ const Dependency = z
     "Dependencies are specified with a simple hash of package name to version range. The version range is a string which has one or more space-separated descriptors. Dependencies can also be identified with a tarball or git URL."
   );
 
-const PackageJsonSchema = z
+export const PackageJsonSchema = z
   .object({
     name: z
       .string()
       .regex(
-        new RegExp("^(?:@[a-z0-9-*~][a-z0-9-*._~]*/)?[a-z0-9-~][a-z0-9-._~]*$")
+        new RegExp("^(?:@[a-z0-9-*~][a-z0-9-*._~]*/)?[a-z0-9-~][a-z0-9-._~]*$"),
+        {
+          message: "name must be a valid npm package name",
+        }
       )
       .describe("The name of the package."),
     version: z
@@ -138,7 +141,7 @@ const PackageJsonSchema = z
     type: z
       .enum(["commonjs", "module"])
       .default("commonjs")
-      .optional()
+      .or(z.undefined())
       .describe(
         'When set to "module", the type field allows a package to specify all .js files within are ES modules. If the "type" field is omitted or set to "commonjs", all .js files are treated as CommonJS.'
       ),
@@ -301,7 +304,7 @@ const PackageJsonSchema = z
       .partial()
       .passthrough()
       .default({})
-      .optional()
+      .or(z.undefined())
       .describe(
         "The 'scripts' member is an object hash of script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point."
       ),
@@ -465,6 +468,6 @@ const PackageJsonSchema = z
 
 export type PackageJson = z.infer<typeof PackageJsonSchema>;
 
-export function validate(evilData: unknown) {
+export function validatePackage(evilData: unknown) {
   return PackageJsonSchema.safeParse(evilData);
 }
