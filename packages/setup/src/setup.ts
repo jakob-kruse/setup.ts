@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { bundleRequire } from "bundle-require";
 import { PackageJson, PackageJsonSchema } from "./types/package-json";
-import type { SetupPluginBuilder, SetupPluginResult } from "@/plugin";
+import { SetupPluginBuilder } from "@/plugin";
 import { promises as fs } from "fs";
 import path from "path";
 
@@ -16,57 +16,68 @@ export type DefineSetupOptions = z.infer<typeof DefineSetupOptionsSchema>;
 export type SetupBuilderPublic = {
   add: (plugin: SetupPluginBuilder) => SetupBuilder;
   mergeOptions: (options: Partial<DefineSetupOptions>) => SetupBuilder;
+  mergePackageJson: (packageJson: Partial<PackageJson>) => SetupBuilder;
 };
 
 export type SetupBuilderInternal = SetupBuilderPublic & {
-  compile: () => Promise<PackageJson>;
+  build: () => Promise<PackageJson>;
   getOptions: () => DefineSetupOptions;
+  fromFile: () => Promise<SetupBuilder>;
 };
 
 export class SetupBuilder {
-  private pluginQueue: SetupPluginResult[] = [];
+  private plugins: Promise<Partial<PackageJson>>[] = [];
 
   constructor(
-    private readonly config: PackageJson,
+    private packageJson: PackageJson,
     private options: DefineSetupOptions = {}
   ) {}
 
-  public getOptions() {
+  public getOptions(): DefineSetupOptions {
     return this.options;
   }
 
-  public mergeOptions(options: Partial<DefineSetupOptions>) {
+  public mergeOptions(options: Partial<DefineSetupOptions>): SetupBuilder {
     this.options = Object.assign(this.options, options);
 
     return this;
   }
 
-  public add(plugin: SetupPluginBuilder) {
-    this.pluginQueue.push(plugin(this.options));
+  public mergePackageJson(packageJson: Partial<PackageJson>): SetupBuilder {
+    this.packageJson = Object.assign(this.packageJson, packageJson);
+
     return this;
   }
 
-  public async compile() {
+  public add(plugin: SetupPluginBuilder): SetupBuilder {
+    this.plugins.push(plugin.build());
+
+    return this;
+  }
+
+  public async build(): Promise<PackageJson> {
     this.mergeOptions(DefineSetupOptionsSchema.parse(this.options));
+    // this.mergeConfig({
+    //   dependencies: {
+    //     "@setup.ts/setup": "*",
+    //   },
+    // });
 
     if (this.options?.validateConfig) {
-      PackageJsonSchema.parse(this.config);
+      PackageJsonSchema.parse(this.packageJson);
     }
 
-    // No plugins, just return the config
-    if (this.pluginQueue.length === 0) {
-      return this.config;
+    if (this.plugins.length === 0) {
+      return this.packageJson;
     }
 
-    const pluginChanges = await Promise.all(this.pluginQueue);
-
-    let newConfig = this.config;
+    const pluginChanges = await Promise.all(this.plugins);
 
     for (const pluginChange of pluginChanges) {
-      newConfig = Object.assign(newConfig, pluginChange);
+      this.mergePackageJson(pluginChange);
     }
 
-    return newConfig;
+    return this.packageJson;
   }
 
   static async fromFile(filePath: string): Promise<SetupBuilder> {

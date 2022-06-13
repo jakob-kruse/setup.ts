@@ -23,7 +23,7 @@ cli
     }
 
     const setupBuilder = await SetupBuilder.fromFile(packageTsPath);
-    const compiled = await setupBuilder.compile();
+    const compiled = await setupBuilder.build();
 
     await fs.writeFile(
       join(process.cwd(), options.out),
@@ -50,14 +50,17 @@ cli
 
     const packageTsPath = join(process.cwd(), options.out);
 
-    const template = (content: string) => `import { defineConfig } from 'pkgts';
+    const template = (
+      content: string
+    ) => `import { defineSetup } from '@setup.ts/setup';
 
-export default defineConfig(${content});`;
+export default defineSetup(${content});`;
 
     await fs.writeFile(packageTsPath, template(packageJsonContent));
   });
 
 cli.parse();
+cli.help();
 
 async function fileExists(path: string): Promise<boolean> {
   try {

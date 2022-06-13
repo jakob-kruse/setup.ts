@@ -1,0 +1,14 @@
+{
+  "name": "example-tsup",
+  "version": "1.0.0",
+  "description": "new description of tsup",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@setup.ts/setup": "workspace:*",
+    "@setup.ts/tsup": "workspace:*",
+    "tsup": "^6.1.2"
+  }
+}

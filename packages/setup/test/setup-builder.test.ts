@@ -1,5 +1,5 @@
 import { definePlugin } from "@";
-import { SetupBuilder, SetupBuilderInternal } from "@/setup";
+import { SetupBuilder } from "@/setup";
 import { PackageJson } from "@/types/package-json";
 import { describe, expect, it } from "vitest";
 import { basicSetup } from "./util";
@@ -16,7 +16,7 @@ describe("SetupBuilder", () => {
 
   describe("mergeOptions()", () => {
     it("should (deep) merge existing options with the provided", async () => {
-      const setupBuilder = basicSetup() as SetupBuilderInternal;
+      const setupBuilder = basicSetup();
 
       setupBuilder.mergeOptions({
         validateConfig: false,
@@ -73,12 +73,16 @@ describe("SetupBuilder", () => {
     it("should add a plugin", async () => {
       const expectedDescription = "new description";
       const setupBuilder = basicSetup();
-      const changeDescriptionPlugin = definePlugin(() => ({
-        description: expectedDescription,
-      }));
+      const changeDescriptionPlugin = definePlugin(() => {
+        return {
+          mergePackageJson: {
+            description: expectedDescription,
+          },
+        };
+      });
       setupBuilder.add(changeDescriptionPlugin());
 
-      const config = await setupBuilder.compile();
+      const config = await setupBuilder.build();
 
       expect(config.description).toBe(expectedDescription);
     });
@@ -91,7 +95,7 @@ describe("SetupBuilder", () => {
 
       const setupBuilder = basicSetup(expectedConfig);
 
-      const config = await setupBuilder.compile();
+      const config = await setupBuilder.build();
 
       expect(config).toBe(expectedConfig);
     });
