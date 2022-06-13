@@ -1,9 +1,9 @@
 #!/bin/env node
 
 import cac from "cac";
+import { SetupBuilder } from "@/setup";
 import { promises as fs } from "fs";
 import { join } from "path";
-import { compileSetupFile } from "@/setup";
 
 const cli = cac("pkgts");
 
@@ -22,7 +22,8 @@ cli
       return;
     }
 
-    const compiled = await compileSetupFile(packageTsPath);
+    const setupBuilder = await SetupBuilder.fromFile(packageTsPath);
+    const compiled = await setupBuilder.compile();
 
     await fs.writeFile(
       join(process.cwd(), options.out),

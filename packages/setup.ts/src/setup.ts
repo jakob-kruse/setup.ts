@@ -1,7 +1,13 @@
 import { z } from "zod";
 import { bundleRequire } from "bundle-require";
 import { PackageJson, PackageJsonSchema } from "./types/package-json";
-import type { SetupPlugin, SetupPluginBuilder } from "@/plugin";
+import type {
+  SetupPluginBuilder,
+  SetupPluginDefinition,
+  SetupPluginResult,
+} from "@/plugin";
+import { promises as fs } from "fs";
+import path from "path";
 
 const DefineSetupOptionsSchema = z
   .object({
@@ -12,21 +18,26 @@ const DefineSetupOptionsSchema = z
 export type DefineSetupOptions = z.infer<typeof DefineSetupOptionsSchema>;
 
 export type SetupBuilderPublic = {
-  add: (plugin: SetupPlugin) => SetupBuilder;
+  add: (plugin: SetupPluginBuilder) => SetupBuilder;
   mergeOptions: (options: Partial<DefineSetupOptions>) => SetupBuilder;
 };
 
 export type SetupBuilderInternal = SetupBuilderPublic & {
   compile: () => Promise<PackageJson>;
+  getOptions: () => DefineSetupOptions;
 };
 
 export class SetupBuilder {
-  private pluginQueue: SetupPluginBuilder[] = [];
+  private pluginQueue: SetupPluginResult[] = [];
 
   constructor(
     private readonly config: PackageJson,
     private options: DefineSetupOptions = {}
   ) {}
+
+  public getOptions() {
+    return this.options;
+  }
 
   public mergeOptions(options: Partial<DefineSetupOptions>) {
     this.options = Object.assign(this.options, options);
@@ -34,7 +45,7 @@ export class SetupBuilder {
     return this;
   }
 
-  public add(plugin: SetupPlugin) {
+  public add(plugin: SetupPluginBuilder) {
     this.pluginQueue.push(plugin(this.options));
     return this;
   }
@@ -61,29 +72,35 @@ export class SetupBuilder {
 
     return newConfig;
   }
+
+  static async fromFile(filePath: string): Promise<SetupBuilder> {
+    const resolved = path.resolve(filePath);
+    try {
+      const fileStat = await fs.stat(resolved);
+
+      if (!fileStat.isFile()) {
+        throw new Error(`"${resolved}" is not a file`);
+      }
+    } catch (error) {
+      throw new Error(`"${resolved}" does not exist`);
+    }
+
+    const file = await bundleRequire({
+      filepath: resolved,
+    });
+
+    if (!file.mod) {
+      throw new Error(`Could not import "${resolved}"`);
+    }
+
+    if (!file.mod.default) {
+      throw new Error(`"${resolved}" does not export a default`);
+    }
+
+    return await file.mod.default;
+  }
 }
 
 export function defineSetup(config: PackageJson, options?: DefineSetupOptions) {
   return new SetupBuilder(config, options) as SetupBuilderPublic;
-}
-
-export async function compileSetupFile(
-  filePath: string,
-  mergeOptions?: Partial<DefineSetupOptions>
-) {
-  const file = await bundleRequire({
-    filepath: filePath,
-  });
-
-  if (!file.mod) {
-    throw new Error("Could not import package.ts");
-  }
-
-  const setupBuilder: SetupBuilderInternal = await file.mod.default;
-
-  if (mergeOptions) {
-    setupBuilder.mergeOptions(mergeOptions);
-  }
-
-  return setupBuilder.compile();
 }
