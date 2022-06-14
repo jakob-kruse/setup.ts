@@ -6,7 +6,7 @@ import { Icon } from 'astro-icon'
 const { content = {} } = Astro.props;
 ---
 
-<html dir={content.dir ?? 'ltr' } lang={content.lang ?? 'en-us' } class="initial" data-theme="light">
+<html dir={content.dir ?? 'ltr' } lang={content.lang ?? 'en-us' } class="initial">
 
 <head>
 	<HeadCommon />
@@ -16,7 +16,7 @@ const { content = {} } = Astro.props;
 <body class="relative bg-base-200">
 
 	<div
-		class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border border-b bg-opacity-95 bg-base-100">
+		class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral bg-opacity-95 bg-base-100">
 		<div class="flex-none lg:hidden">
 			<label for="nav-drawer" class="btn btn-square btn-ghost">
 				<Icon pack="mdi" name="menu" size="24"></Icon>
