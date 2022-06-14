@@ -1,22 +1,16 @@
-name: CI
+name: Github Pages Astro CI
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    types: [opened, synchronize]
+    branches: [main, docs]
+  workflow_dispatch:
 
 jobs:
-  build:
-    name: Build and Test
-    timeout-minutes: 15
-    runs-on: ${{ matrix.os }}
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+  deploy:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: write
 
     steps:
       - name: Check out your repository using git
@@ -47,13 +41,14 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --filter docs --shamefully-hoist
 
-      - name: Lint
-        run: pnpm lint
+      - name: Build Astro
+        run: pnpm run --filter docs build
 
-      - name: Build
-        run: pnpm build --filter packages/*
-
-      - name: Test
-        run: pnpm test
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apps/docs/dist
+          cname: setup.ts.jakob-kruse.de

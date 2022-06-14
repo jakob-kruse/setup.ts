@@ -5,12 +5,12 @@ import { SetupBuilder } from "@/setup";
 import { promises as fs } from "fs";
 import { join } from "path";
 
-const cli = cac("pkgts");
+const cli = cac("setup.ts");
 
 cli
   .command("run", "Compile package.ts to package.json")
   .option("-p, --path <path>", "Path to package.ts", {
-    default: "package.ts",
+    default: "setup.ts",
   })
   .option("-o, --out <path>", "Output for compiled package.json", {
     default: "package.json",
@@ -37,7 +37,7 @@ cli
     default: "package.json",
   })
   .option("-o, --out <path>", "Output for compiled package.ts", {
-    default: "package.ts",
+    default: "setup.ts",
   })
   .action(async (options: { path: string; out: string }) => {
     const packageJsonPath = join(process.cwd(), options.path);

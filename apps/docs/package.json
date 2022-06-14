@@ -1,0 +1,25 @@
+{
+  "name": "@example/docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "@astrojs/markdown-remark": "^0.11.2",
+    "@astrojs/sitemap": "^0.1.2",
+    "@astrojs/svelte": "^0.1.4",
+    "@astrojs/tailwind": "^0.2.1",
+    "@tailwindcss/typography": "^0.5.2",
+    "astro": "^1.0.0-beta.44",
+    "astro-icon": "^0.7.1",
+    "autoprefixer": "^10.4.7",
+    "daisyui": "^2.15.3",
+    "postcss": "^8.4.14",
+    "svelte": "^3.46.4",
+    "tailwindcss": "^3.1.3"
+  }
+}
