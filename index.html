@@ -39,67 +39,46 @@
 <meta name="twitter:description" content="Docs intro">
 <meta name="twitter:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
 <meta name="twitter:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
-<link rel="stylesheet" href="/assets/asset.b6e3bc4a.css" />
+<link rel="stylesheet" href="/assets/asset.f7572e84.css" />
+<link rel="stylesheet" href="/assets/asset.c702f647.css" />
 </head>
 
-<body class="bg-base-200">
-	<!-- <main class="w-screen min-h-screen grid grid-cols-4 text-base-content">
-		<aside class="hidden lg:grid grid-cols-1">
-			<ul class="menu p-4 overflow-y-auto">
-				<div class="avatar flex flex-row items-center gap-2 px-2">
-					<div class="w-8 rounded">
-						<img src="logo.png" />
-					</div>
-					<span class="text-md font-medium">setup.ts</span>
-				</div>
-				<div class="divider"></div>
-				<li><a href="/introduction">Introduction</a></li>
-			</ul>
-		</aside>
-		<article class="max-w-full px-4 bg-base-100 col-span-full lg:col-span-3">
-			<div class="prose container mx-auto">
-				<slot />
+<body class="relative bg-base-200">
+
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border border-b bg-opacity-95 bg-base-100">
+		<div class="flex-none lg:hidden">
+			<label for="nav-drawer" class="btn btn-square btn-ghost">
+				<svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+			</label>
+		</div>
+		<a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+			<div class="w-6 rounded">
+				<img src="logo.png">
 			</div>
-		</article>
+			<span class="font-medium text-md">setup.ts</span>
+		</a>
+	</div>
 
-		
-	</main> -->
-
-	<div class="w-full navbar bg-base-100">
-    <div class="flex-none lg:hidden">
-        <label for="nav-drawer" class="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
-            </svg>
-        </label>
-    </div>
-    <div class="flex-row items-center flex-1 gap-2 px-2 mx-2 avatar">
-        <div class="w-6 rounded">
-            <img src="logo.png">
-        </div>
-        <span class="font-medium text-md">setup.ts</span>
-    </div>
-    <div class="flex-none hidden lg:block">
-        <ul class="menu menu-horizontal">
-            <li><a href="/introduction">Introduction</a></li>
-        </ul>
-    </div>
-</div>
 
 	<div class="drawer drawer-mobile bg-base-100">
 		<input id="nav-drawer" type="checkbox" class="drawer-toggle">
-		<div class="drawer-content prose mx-auto">
-			<div align="center"><img src="logo.png" width="128"><h1 id="setupts">setup.ts</h1><p>setup.ts let’s you write your package.json (and other configs files!) in typescript</p><p>This provides type-safety and much higher customizability</p><p><a href="#getting-started">Getting started</a> •
-<a href="#installation">Installation</a> •
-<a href="#configuration">Configuration</a></p></div><h2 id="getting-started">Getting Started</h2><p>TBD</p><h2 id="installation">Installation</h2><p>TBD</p><h2 id="configuration">Configuration</h2><p>TBD</p>
+		<div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+			<div align="center"><img src="logo.png" width="128"><h1 id="setupts">setup.ts</h1><p>Project scaffolding in TypeScript</p><p><a href="/quick-start">Quick Start</a> •
+<a href="#configuration">Configuration</a></p></div><h2 id="features">Features</h2><ul>
+<li>Type-Safety and conditionals</li>
+<li>Customizable through various plugins</li>
+<li>Async config and plugins</li>
+</ul><div class="mt-8 shadow-lg alert alert-warning">
+<div><svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:alert"><path fill="currentColor" d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg>
+<span class="text-sm font-bold">Setup.ts is still in early development!</span>
+</div>
+</div>
 		</div>
 		<div class="drawer-side">
 			<label for="nav-drawer" class="drawer-overlay"></label>
-			<ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-				<li><a href="/introduction">Introduction</a></li>
+			<ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+				<li><a href="/quick-start">Quick Start</a></li>
 			</ul>
-
 		</div>
 	</div>
 </body></html>

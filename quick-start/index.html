@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-us" class="initial" data-theme="light">
+
+<head>
+	<!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="sitemap" href="/sitemap.xml">
+
+<!-- Scrollable a11y code helper -->
+<script src="/make-scrollable-code-focusable.js"></script>
+	<!-- Page Metadata --><link rel="canonical" href="http://localhost:3000/quick-start/">
+
+<title> setup.ts: Quick Start</title>
+
+
+<!-- OpenGraph Tags -->
+<meta property="og:title" content=" setup.ts: Quick Start">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:3000/quick-start/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
+<meta property="og:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
+<meta name="description" property="og:description" content="Get started quickly with setup.ts">
+<meta property="og:site_name" content="setup.ts">
+
+<!-- Twitter Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="astrodotbuild">
+<meta name="twitter:title" content=" setup.ts: Quick Start">
+<meta name="twitter:description" content="Get started quickly with setup.ts">
+<meta name="twitter:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
+<meta name="twitter:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
+<link rel="stylesheet" href="/assets/asset.c702f647.css" />
+</head>
+
+<body class="relative bg-base-200">
+
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border border-b bg-opacity-95 bg-base-100">
+		<div class="flex-none lg:hidden">
+			<label for="nav-drawer" class="btn btn-square btn-ghost">
+				<svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+			</label>
+		</div>
+		<a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+			<div class="w-6 rounded">
+				<img src="logo.png">
+			</div>
+			<span class="font-medium text-md">setup.ts</span>
+		</a>
+	</div>
+
+
+	<div class="drawer drawer-mobile bg-base-100">
+		<input id="nav-drawer" type="checkbox" class="drawer-toggle">
+		<div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+			<h1 id="quick-start">Quick Start</h1><p>The following guide will get you up and running as quickly as possible, while also teaching you the fundamentals of setup.ts</p><div class="shadow-lg alert">
+<div><svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:information"><path fill="currentColor" d="M13 9h-2V7h2m0 10h-2v-6h2m-1-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/></svg>
+<span>The following examples will use <strong>pnpm</strong> as a package manager, but <strong>yarn</strong> and <strong>npm</strong> are also supported!</span>
+</div>
+</div><h2 id="project-setup">Project setup</h2><h3 id="create-a-directory">Create a directory</h3><p>First we create our project directory and initialize a new project inside</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mkdir setup-starter</span></span>
+<span class="line"><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> setup-starter</span></span>
+<span class="line"><span style="color: #C9D1D9">pnpm init</span></span></code></pre><h3 id="installing-setupts">Installing setup.ts</h3><p>Next we will install <strong>setup.ts</strong> as a dev-dependency.</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">pnpm install -D @setup.ts/setup</span></span></code></pre><h3 id="running-setupts">Running setup.ts</h3><p><strong>@setup.ts/setup</strong> ships with a useful CLI tool.
+You can access it via <code>pnpm setup.ts ...</code> or <code>npx setup.ts ...</code> when using NPM.</p><p>There are two commands you should know:</p><ul>
+<li><strong>setup.ts generate</strong>: Generates a <code>setup.ts</code> file with the content of <code>package.json</code></li>
+<li><strong>setup.ts run</strong>: Compiles your your <code>setup.ts</code> file into a <code>package.json</code> file while applying all plugins etc.</li>
+</ul><h3 id="getting-a-setupts-file">Getting a setup.ts file</h3><p>In your project directory run:</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">pnpm setup.ts generate</span></span></code></pre><p>This will create a <code>setup.ts</code> file in your project directory with the contents of your <code>package.json</code> file.</p><p>You should see that a <code>setup.ts</code> file has been created that should look something like this</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { defineSetup } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #D2A8FF">defineSetup</span><span style="color: #FFA657">({</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">name: </span><span style="color: #A5D6FF">&quot;setup-starter&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">version: </span><span style="color: #A5D6FF">&quot;1.0.0&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">description: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">main: </span><span style="color: #A5D6FF">&quot;index.js&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">scripts: {</span></span>
+<span class="line"><span style="color: #C9D1D9">    test: </span><span style="color: #A5D6FF">&#39;echo &quot;Error: no test specified&quot; &amp;&amp; exit 1&#39;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">keywords: []</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">author: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">license: </span><span style="color: #A5D6FF">&quot;ISC&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">dependencies: {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">&quot;@setup.ts/setup&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;...&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">})</span><span style="color: #C9D1D9">;</span></span></code></pre><h2 id="closing-words">Closing Words</h2><p>Now you are basically ready to go! You can now freely edit your <code>setup.ts</code> file and run <code>setup.ts run</code> to compile your project.</p><p><em>Make sure to check out the docs for more advanced usage and plugins.</em></p>
+		</div>
+		<div class="drawer-side">
+			<label for="nav-drawer" class="drawer-overlay"></label>
+			<ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+				<li><a href="/quick-start">Quick Start</a></li>
+			</ul>
+		</div>
+	</div>
+</body></html>
