@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/images/logo.png" width="128"/>
+<img src="apps/docs/public/logo.png" width="128"/>
 
 # setup.ts
 
