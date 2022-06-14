@@ -2,7 +2,7 @@ name: Github Pages Astro CI
 
 on:
   push:
-    branches: [main, docs]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
