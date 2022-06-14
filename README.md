@@ -1,13 +1,27 @@
+<div align="center">
+
+<img src="docs/assets/images/logo.png" width="128"/>
+
 # setup.ts
 
-[![CI](https://github.com/jakob-kruse/setup.ts/actions/workflows/ci.yml/badge.svg)](https://github.com/jakob-kruse/setup.ts/actions/workflows/ci.yml)
-[![Renovate](https://github.com/jakob-kruse/setup.ts/actions/workflows/renovate.yml/badge.svg)](https://github.com/jakob-kruse/setup.ts/actions/workflows/renovate.yml)
+setup.ts let's you write your package.json (and other configs files!) in typescript
 
-Write your package.json in TypeScript.
+This provides type-safety and much higher customizability
 
-## Features
+[Getting started](#getting-started) •
+[Installation](#installation) •
+[Configuration](#configuration) •
 
-- Type-safety
-- Conditionals
-- Various templates for ~~Vue~~, ~~React~~, ~~Vite~~ and more to come
-- High Code Coverage
+</div>
+
+## Getting Started
+
+TBD
+
+## Installation
+
+TBD
+
+## Configuration
+
+TBD
