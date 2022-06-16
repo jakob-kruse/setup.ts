@@ -1,5 +1,5 @@
 ---
-title: Advacned Plugins
+title: Advanced Plugins
 description: More information about plugins
 layout: ../../layouts/MainLayout.astro
 
@@ -14,16 +14,16 @@ We covered the basics of plugins in the [previous section](/plugins/introduction
 
 # Different syntaxes
 
-You can use use two syntaxes to define the behavior of your plugin.
+You can use two syntaxes to define the behavior of your plugin.
 
-**You do not have to decive between syntaxes, they can be mixed!**
+**You do not have to decide between syntaxes, they can be mixed!**
 
 ## Declarative Syntax
 
 ```ts
 // setup.ts
 
-import { definePlugin } from "@setup.ts/setup.ts";
+import { definePlugin } from "@setup.ts/setup";
 
 const declarativePlugin = definePlugin(() => {
   // all changes are returned at the end of the function
@@ -37,9 +37,9 @@ const declarativePlugin = definePlugin(() => {
 });
 ```
 
-## "Functional" Syntax
+## "Function" Syntax
 
-Instead of returning an object, you can call function that takes the config object to merge.
+Instead of returning an object, you can call a function that takes the config object to merge.
 
 This is the most flexible syntax, but it is also a bit more verbose. If your plugin has a lot of conditional logic, you might want to use this, to avoid long temary operators or temporary variables.
 
@@ -53,7 +53,7 @@ This is the most flexible syntax, but it is also a bit more verbose. If your plu
 ```ts
 // setup.ts
 
-import { definePlugin } from "@setup.ts/setup.ts";
+import { definePlugin } from "@setup.ts/setup";
 
 const declarativePlugin = definePlugin(({ mergePackageJson }) => {
   const isMayorRelease = true;

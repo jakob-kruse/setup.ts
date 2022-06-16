@@ -17,13 +17,13 @@ setup: |
 Project scaffolding in TypeScript
 
 [Quick Start](/quick-start) •
-[Configuration](#configuration)
+[Plugins](/plugins/introduction)
 
 </div>
 
 ## Features
 
-- Type-Safety, conditionals and comments
+- Type-Safety, conditionals, and comments
 - Customizable through various plugins
 - Async config and plugins
 

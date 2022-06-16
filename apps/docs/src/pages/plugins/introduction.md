@@ -10,11 +10,11 @@ setup: |
 
 # Plugin Introduction
 
-This guide will get you started with setup.ts's plugin system. We will cover how to use plugins, what they can do and how to write your own.
+This guide will get you started with setup.ts' plugin system. We will cover how to use plugins, what they can do and how to write your own.
 
 ## Understanding the setup.ts flow
 
-To understand plugins, we have understand that setup.ts is basically a json generator. When setup.ts is ran, it bundles and imports `setup.ts` and uses the SetupBuilder returned by `defineSetup` to "compile" the final package.json.
+To understand plugins, we have understand that setup.ts is basically a JSON generator. When setup.ts is run, it bundles and imports `setup.ts` and uses the SetupBuilder returned by `defineSetup` to "compile" the final package.json.
 
 ### Example
 
@@ -22,7 +22,7 @@ Let's say we have a very basic `setup.ts`.
 
 ```ts
 // setup.ts
-import { defineSetup } from "@setup.ts/setup.ts";
+import { defineSetup } from "@setup.ts/setup";
 
 const dynamicDescription = 1 == 1 ? "1 is 1, wow!" : "Im confused";
 
@@ -59,10 +59,10 @@ setup.ts exports a plugin helper function. This function is called `definePlugin
 
 ### Example
 
-Lets say we want a plugin that changes the version of our package. We can write a plugin like this
+Let's say we want a plugin that changes the version of our package. We can write a plugin like this
 
 ```ts
-import { definePlugin } from "@setup.ts/setup.ts";
+import { definePlugin } from "@setup.ts/setup";
 
 const changeVersionPlugin = definePlugin<{ version: string }>((config) => ({
   mergePackageJson: {
@@ -71,11 +71,11 @@ const changeVersionPlugin = definePlugin<{ version: string }>((config) => ({
 }));
 ```
 
-Now we can apply that to our previous example like this
+Now we can apply that to our previous example, like this
 
 ```ts
 // setup.ts
-import { defineSetup } from "@setup.ts/setup.ts";
+import { defineSetup } from "@setup.ts/setup";
 
 const dynamicDescription = 1 == 1 ? "1 is 1, wow!" : "Im confused";
 
@@ -107,8 +107,8 @@ The resulting package.json would look like this
 
 The define plugin takes a function with the plugin context object as the first argument. It has the following properties
 
-    - config: The config object passed to definePlugin with the type defined in the genreic type.
-    - mergePackageJson: A functio to merge the provided object with the resulting package.json. This is useful for conditonals inside the plugin.
+    - config: The config object passed to definePlugin with the type defined in the generic type.
+    - mergePackageJson: A function to merge the provided object with the resulting package.json. This is useful for conditionals inside the plugin.
     - registerFiles: A function to register files with or without a template.
 
 To learn more see [Advanced Plugins](/plugins/advanced)
