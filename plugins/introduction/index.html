@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-us" class="initial">
+
+<head>
+	<!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="sitemap" href="/sitemap.xml">
+
+<!-- Scrollable a11y code helper -->
+<script src="/make-scrollable-code-focusable.js"></script>
+	<!-- Page Metadata --><link rel="canonical" href="http://localhost:3000/plugins/introduction/">
+
+<title> setup.ts: Plugin Introduction</title>
+
+<!-- OpenGraph Tags -->
+<meta property="og:title" content=" setup.ts: Plugin Introduction">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:3000/plugins/introduction/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta property="og:image:alt" content="setup.ts logo">
+<meta name="description" property="og:description" content="Docs intro">
+<meta property="og:site_name" content="setup.ts">
+
+<!-- Twitter Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="JakobKruseDev">
+<meta name="twitter:title" content=" setup.ts: Plugin Introduction">
+<meta name="twitter:description" content="Docs intro">
+<meta name="twitter:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta name="twitter:image:alt" content="setup.ts logo">
+<link rel="stylesheet" href="/assets/asset.6b7a2c42.css" />
+<link rel="stylesheet" href="/assets/asset.ddcb0ae5.css" />
+</head>
+
+<body class="relative bg-base-200">
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral/25 bg-opacity-95 bg-base-100">
+    <div class="flex-none lg:hidden">
+        <label for="nav-drawer" class="btn btn-square btn-ghost">
+            <svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+        </label>
+    </div>
+    <a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+        <div class="w-6 rounded">
+            <img src="/logo.png">
+        </div>
+        <span class="font-medium text-md">setup.ts</span>
+    </a>
+</div>
+	<div class="drawer drawer-mobile bg-base-100">
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle">
+    <div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+        <h1 id="plugin-introduction">Plugin Introduction</h1><p>This guide will get you started with setup.ts’s plugin system. We will cover how to use plugins, what they can do and how to write your own.</p><h2 id="understanding-the-setupts-flow">Understanding the setup.ts flow</h2><p>To understand plugins, we have understand that setup.ts is basically a json generator. When setup.ts is ran, it bundles and imports <code>setup.ts</code> and uses the SetupBuilder returned by <code>defineSetup</code> to “compile” the final package.json.</p><h3 id="example">Example</h3><p>Let’s say we have a very basic <code>setup.ts</code>.</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// setup.ts</span></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { defineSetup } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup.ts&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">dynamicDescription</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">==</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;1 is 1, wow!&quot;</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;Im confused&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #D2A8FF">defineSetup</span><span style="color: #FFA657">({</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">name: </span><span style="color: #A5D6FF">&quot;my-package&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">version: </span><span style="color: #A5D6FF">&quot;0.0.1&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">description: dynamicDescription</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">})</span><span style="color: #C9D1D9">;</span></span></code></pre><p>The resulting package.json would look like this</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// package.json</span></span>
+<span class="line"><span style="color: #C9D1D9">{</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;name&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;my-package&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;version&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;0.0.1&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;description&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;1 is 1, wow!&quot;</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre><h2 id="what-can-plugins-do">What can plugins do?</h2><p>Plugins have a variety of use-cases and can be customized by configs. They are inspired by ViteJS plugins.</p><ul>
+<li>Modify the resulting package.json</li>
+<li>Create new files from templates</li>
+</ul><p>Plugins return a partial package definition. This will be merged with the result of defineSetup. Plugins can be sync or async.</p><h2 id="writing-a-plugin">Writing a plugin</h2><p>setup.ts exports a plugin helper function. This function is called <code>definePlugin</code> and takes a config object.</p><h3 id="example-1">Example</h3><p>Lets say we want a plugin that changes the version of our package. We can write a plugin like this</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { definePlugin } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup.ts&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">changeVersionPlugin</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">definePlugin</span><span style="color: #C9D1D9">&lt;{ </span><span style="color: #FFA657">version</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span><span style="color: #C9D1D9"> }&gt;((</span><span style="color: #FFA657">config</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=&gt;</span><span style="color: #C9D1D9"> ({</span></span>
+<span class="line"><span style="color: #C9D1D9">  mergePackageJson: {</span></span>
+<span class="line"><span style="color: #C9D1D9">    version: config.version,</span></span>
+<span class="line"><span style="color: #C9D1D9">  },</span></span>
+<span class="line"><span style="color: #C9D1D9">}));</span></span></code></pre><p>Now we can apply that to our previous example like this</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// setup.ts</span></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { defineSetup } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup.ts&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">dynamicDescription</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">==</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;1 is 1, wow!&quot;</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;Im confused&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">changeVersionPlugin</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">definePlugin</span><span style="color: #C9D1D9">&lt;{ </span><span style="color: #FFA657">version</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span><span style="color: #C9D1D9"> }&gt;(({ </span><span style="color: #FFA657">config</span><span style="color: #C9D1D9"> }) </span><span style="color: #FF7B72">=&gt;</span><span style="color: #C9D1D9"> ({</span></span>
+<span class="line"><span style="color: #C9D1D9">  mergePackageJson: {</span></span>
+<span class="line"><span style="color: #C9D1D9">    version: config.version,</span></span>
+<span class="line"><span style="color: #C9D1D9">  },</span></span>
+<span class="line"><span style="color: #C9D1D9">}));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #D2A8FF">defineSetup</span><span style="color: #FFA657">({</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">name: </span><span style="color: #A5D6FF">&quot;my-package&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">version: </span><span style="color: #A5D6FF">&quot;0.0.1&quot;</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">  </span><span style="color: #C9D1D9">description: dynamicDescription</span><span style="color: #FFA657">,</span></span>
+<span class="line"><span style="color: #FFA657">}).</span><span style="color: #D2A8FF">add</span><span style="color: #FFA657">(</span><span style="color: #D2A8FF">changeVersionPlugin</span><span style="color: #FFA657">({ </span><span style="color: #C9D1D9">version: </span><span style="color: #A5D6FF">&quot;0.0.2&quot;</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">}))</span><span style="color: #C9D1D9">;</span></span></code></pre><p>The resulting package.json would look like this</p><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// package.json</span></span>
+<span class="line"><span style="color: #C9D1D9">{</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;name&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;my-package&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;version&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;0.0.2&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #79C0FF">&quot;description&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;1 is 1, wow!&quot;</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre><h3 id="plugin-context-and-different-syntaxes">Plugin context and different syntaxes</h3><p>The define plugin takes a function with the plugin context object as the first argument. It has the following properties</p><ul>
+<li>config: The config object passed to definePlugin with the type defined in the genreic type.</li>
+<li>mergePackageJson: A functio to merge the provided object with the resulting package.json. This is useful for conditonals inside the plugin.</li>
+<li>registerFiles: A function to register files with or without a template.</li>
+</ul><p>To learn more see <a href="/plugins/advanced">Advanced Plugins</a></p>
+    </div>
+    <div class="drawer-side">
+        <label for="nav-drawer" class="drawer-overlay"></label>
+        <ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+            <div class="pb-4">
+                
+                <li><a class="btn-ghost btn-sm " href="/quick-start">Quick Start</a></li>
+            </div><div class="pb-4">
+                <p class="text-xs font-bold uppercase py-2">Plugins</p>
+                <li><a class="btn-ghost btn-sm btn-disabled" href="/plugins/introduction">Introduction</a></li><li><a class="btn-ghost btn-sm " href="/plugins/advanced">Advanced Plugins</a></li>
+            </div>
+
+        </ul>
+    </div>
+</div>
+</body></html>

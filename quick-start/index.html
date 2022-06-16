@@ -21,47 +21,44 @@
 
 <title> setup.ts: Quick Start</title>
 
-
 <!-- OpenGraph Tags -->
 <meta property="og:title" content=" setup.ts: Quick Start">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:3000/quick-start/">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
-<meta property="og:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
+<meta property="og:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta property="og:image:alt" content="setup.ts logo">
 <meta name="description" property="og:description" content="Get started quickly with setup.ts">
 <meta property="og:site_name" content="setup.ts">
 
 <!-- Twitter Tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="astrodotbuild">
+<meta name="twitter:site" content="JakobKruseDev">
 <meta name="twitter:title" content=" setup.ts: Quick Start">
 <meta name="twitter:description" content="Get started quickly with setup.ts">
-<meta name="twitter:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
-<meta name="twitter:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
-<link rel="stylesheet" href="/assets/asset.7ee8e528.css" />
+<meta name="twitter:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta name="twitter:image:alt" content="setup.ts logo">
+<link rel="stylesheet" href="/assets/asset.6b7a2c42.css" />
 </head>
 
 <body class="relative bg-base-200">
-	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral bg-opacity-95 bg-base-100">
-		<div class="flex-none lg:hidden">
-			<label for="nav-drawer" class="btn btn-square btn-ghost">
-				<svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
-			</label>
-		</div>
-		<a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
-			<div class="w-6 rounded">
-				<img src="/logo.png">
-			</div>
-			<span class="font-medium text-md">setup.ts</span>
-		</a>
-	</div>
-
-
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral/25 bg-opacity-95 bg-base-100">
+    <div class="flex-none lg:hidden">
+        <label for="nav-drawer" class="btn btn-square btn-ghost">
+            <svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+        </label>
+    </div>
+    <a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+        <div class="w-6 rounded">
+            <img src="/logo.png">
+        </div>
+        <span class="font-medium text-md">setup.ts</span>
+    </a>
+</div>
 	<div class="drawer drawer-mobile bg-base-100">
-		<input id="nav-drawer" type="checkbox" class="drawer-toggle">
-		<div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
-			<h1 id="quick-start">Quick Start</h1><p>The following guide will get you up and running as quickly as possible, while also teaching you the fundamentals of setup.ts</p><div class="shadow-lg alert">
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle">
+    <div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+        <h1 id="quick-start">Quick Start</h1><p>The following guide will get you up and running as quickly as possible, while also teaching you the fundamentals of setup.ts</p><div class="shadow-lg alert">
 <div><svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:information"><path fill="currentColor" d="M13 9h-2V7h2m0 10h-2v-6h2m-1-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/></svg>
 <span>The following examples will use <strong>pnpm</strong> as a package manager, but <strong>yarn</strong> and <strong>npm</strong> are also supported!</span>
 </div>
@@ -88,12 +85,19 @@ You can access it via <code>pnpm setup.ts ...</code> or <code>npx setup.ts ...</
 <span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">&quot;@setup.ts/setup&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;...&quot;</span><span style="color: #C9D1D9">,</span></span>
 <span class="line"><span style="color: #C9D1D9">  }</span><span style="color: #FFA657">,</span></span>
 <span class="line"><span style="color: #FFA657">})</span><span style="color: #C9D1D9">;</span></span></code></pre><h2 id="closing-words">Closing Words</h2><p>Now you are basically ready to go! You can now freely edit your <code>setup.ts</code> file and run <code>setup.ts run</code> to compile your project.</p><p><em>Make sure to check out the docs for more advanced usage and plugins.</em></p>
-		</div>
-		<div class="drawer-side">
-			<label for="nav-drawer" class="drawer-overlay"></label>
-			<ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
-				<li><a href="/quick-start">Quick Start</a></li>
-			</ul>
-		</div>
-	</div>
+    </div>
+    <div class="drawer-side">
+        <label for="nav-drawer" class="drawer-overlay"></label>
+        <ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+            <div class="pb-4">
+                
+                <li><a class="btn-ghost btn-sm btn-disabled" href="/quick-start">Quick Start</a></li>
+            </div><div class="pb-4">
+                <p class="text-xs font-bold uppercase py-2">Plugins</p>
+                <li><a class="btn-ghost btn-sm " href="/plugins/introduction">Introduction</a></li><li><a class="btn-ghost btn-sm " href="/plugins/advanced">Advanced Plugins</a></li>
+            </div>
+
+        </ul>
+    </div>
+</div>
 </body></html>

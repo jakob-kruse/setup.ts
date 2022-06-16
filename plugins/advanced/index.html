@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-us" class="initial">
+
+<head>
+	<!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="sitemap" href="/sitemap.xml">
+
+<!-- Scrollable a11y code helper -->
+<script src="/make-scrollable-code-focusable.js"></script>
+	<!-- Page Metadata --><link rel="canonical" href="http://localhost:3000/plugins/advanced/">
+
+<title> setup.ts: Advacned Plugins</title>
+
+<!-- OpenGraph Tags -->
+<meta property="og:title" content=" setup.ts: Advacned Plugins">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:3000/plugins/advanced/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta property="og:image:alt" content="setup.ts logo">
+<meta name="description" property="og:description" content="More information about plugins">
+<meta property="og:site_name" content="setup.ts">
+
+<!-- Twitter Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="JakobKruseDev">
+<meta name="twitter:title" content=" setup.ts: Advacned Plugins">
+<meta name="twitter:description" content="More information about plugins">
+<meta name="twitter:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta name="twitter:image:alt" content="setup.ts logo">
+<link rel="stylesheet" href="/assets/asset.6b7a2c42.css" />
+<link rel="stylesheet" href="/assets/asset.ddcb0ae5.css" />
+</head>
+
+<body class="relative bg-base-200">
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral/25 bg-opacity-95 bg-base-100">
+    <div class="flex-none lg:hidden">
+        <label for="nav-drawer" class="btn btn-square btn-ghost">
+            <svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+        </label>
+    </div>
+    <a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+        <div class="w-6 rounded">
+            <img src="/logo.png">
+        </div>
+        <span class="font-medium text-md">setup.ts</span>
+    </a>
+</div>
+	<div class="drawer drawer-mobile bg-base-100">
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle">
+    <div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+        <h1 id="advanced-plugins">Advanced Plugins</h1><p>We covered the basics of plugins in the <a href="/plugins/introduction">previous section</a>. Here we will cover some more advanced topics.</p><h1 id="different-syntaxes">Different syntaxes</h1><p>You can use use two syntaxes to define the behavior of your plugin.</p><p><strong>You do not have to decive between syntaxes, they can be mixed!</strong></p><h2 id="declarative-syntax">Declarative Syntax</h2><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// setup.ts</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { definePlugin } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup.ts&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">declarativePlugin</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">definePlugin</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=&gt;</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// all changes are returned at the end of the function</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    mergePackageJson: {</span></span>
+<span class="line"><span style="color: #C9D1D9">      name: </span><span style="color: #A5D6FF">&quot;my-plugin&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">      version: </span><span style="color: #A5D6FF">&quot;0.0.1&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">      description: </span><span style="color: #A5D6FF">&quot;My plugin&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    },</span></span>
+<span class="line"><span style="color: #C9D1D9">  };</span></span>
+<span class="line"><span style="color: #C9D1D9">});</span></span></code></pre><h2 id="functional-syntax">“Functional” Syntax</h2><p>Instead of returning an object, you can call function that takes the config object to merge.</p><p>This is the most flexible syntax, but it is also a bit more verbose. If your plugin has a lot of conditional logic, you might want to use this, to avoid long temary operators or temporary variables.</p><div class="shadow-lg alert">
+<div><svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:information"><path fill="currentColor" d="M13 9h-2V7h2m0 10h-2v-6h2m-1-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/></svg>
+<span>If you are mixing syntaxes, the functional calls will be executed 
+<b>after</b>
+ the declarative values have been merged.</span>
+</div>
+</div><pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// setup.ts</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { definePlugin } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;@setup.ts/setup.ts&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">declarativePlugin</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">definePlugin</span><span style="color: #C9D1D9">(({ </span><span style="color: #FFA657">mergePackageJson</span><span style="color: #C9D1D9"> }) </span><span style="color: #FF7B72">=&gt;</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">isMayorRelease</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">true</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">mergePackageJson</span><span style="color: #C9D1D9">({</span></span>
+<span class="line"><span style="color: #C9D1D9">    name: </span><span style="color: #A5D6FF">&quot;my-plugin&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    description: </span><span style="color: #A5D6FF">&quot;My plugin&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (isMayorRelease) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #D2A8FF">mergePackageJson</span><span style="color: #C9D1D9">({</span></span>
+<span class="line"><span style="color: #C9D1D9">      version: </span><span style="color: #A5D6FF">&quot;1.0.0&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">else</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #D2A8FF">mergePackageJson</span><span style="color: #C9D1D9">({</span></span>
+<span class="line"><span style="color: #C9D1D9">      version: </span><span style="color: #A5D6FF">&quot;0.0.1&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// The return value can be ommitted.</span></span>
+<span class="line"><span style="color: #C9D1D9">});</span></span></code></pre>
+    </div>
+    <div class="drawer-side">
+        <label for="nav-drawer" class="drawer-overlay"></label>
+        <ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+            <div class="pb-4">
+                
+                <li><a class="btn-ghost btn-sm " href="/quick-start">Quick Start</a></li>
+            </div><div class="pb-4">
+                <p class="text-xs font-bold uppercase py-2">Plugins</p>
+                <li><a class="btn-ghost btn-sm " href="/plugins/introduction">Introduction</a></li><li><a class="btn-ghost btn-sm btn-disabled" href="/plugins/advanced">Advanced Plugins</a></li>
+            </div>
+
+        </ul>
+    </div>
+</div>
+</body></html>

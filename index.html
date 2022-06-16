@@ -21,50 +21,47 @@
 
 <title> setup.ts: Introduction</title>
 
-
 <!-- OpenGraph Tags -->
 <meta property="og:title" content=" setup.ts: Introduction">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://localhost:3000/">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
-<meta property="og:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
+<meta property="og:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta property="og:image:alt" content="setup.ts logo">
 <meta name="description" property="og:description" content="Docs intro">
 <meta property="og:site_name" content="setup.ts">
 
 <!-- Twitter Tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="astrodotbuild">
+<meta name="twitter:site" content="JakobKruseDev">
 <meta name="twitter:title" content=" setup.ts: Introduction">
 <meta name="twitter:description" content="Docs intro">
-<meta name="twitter:image" content="https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true">
-<meta name="twitter:image:alt" content="astro logo on a starry expanse of space, with a purple saturn-like planet floating in the right foreground">
-<link rel="stylesheet" href="/assets/asset.f7572e84.css" />
-<link rel="stylesheet" href="/assets/asset.7ee8e528.css" />
+<meta name="twitter:image" content="https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true">
+<meta name="twitter:image:alt" content="setup.ts logo">
+<link rel="stylesheet" href="/assets/asset.6b7a2c42.css" />
+<link rel="stylesheet" href="/assets/asset.ddcb0ae5.css" />
 </head>
 
 <body class="relative bg-base-200">
-	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral bg-opacity-95 bg-base-100">
-		<div class="flex-none lg:hidden">
-			<label for="nav-drawer" class="btn btn-square btn-ghost">
-				<svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
-			</label>
-		</div>
-		<a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
-			<div class="w-6 rounded">
-				<img src="/logo.png">
-			</div>
-			<span class="font-medium text-md">setup.ts</span>
-		</a>
-	</div>
-
-
+	<div class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral/25 bg-opacity-95 bg-base-100">
+    <div class="flex-none lg:hidden">
+        <label for="nav-drawer" class="btn btn-square btn-ghost">
+            <svg viewBox="0 0 24 24" width="24" height="24" astro-icon="mdi:menu"><path fill="currentColor" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+        </label>
+    </div>
+    <a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
+        <div class="w-6 rounded">
+            <img src="/logo.png">
+        </div>
+        <span class="font-medium text-md">setup.ts</span>
+    </a>
+</div>
 	<div class="drawer drawer-mobile bg-base-100">
-		<input id="nav-drawer" type="checkbox" class="drawer-toggle">
-		<div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
-			<div align="center"><img src="logo.png" width="128"><h1 id="setupts">setup.ts</h1><p>Project scaffolding in TypeScript</p><p><a href="/quick-start">Quick Start</a> •
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle">
+    <div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+        <div align="center"><img src="logo.png" width="128"><h1 id="setupts">setup.ts</h1><p>Project scaffolding in TypeScript</p><p><a href="/quick-start">Quick Start</a> •
 <a href="#configuration">Configuration</a></p></div><h2 id="features">Features</h2><ul>
-<li>Type-Safety and conditionals</li>
+<li>Type-Safety, conditionals and comments</li>
 <li>Customizable through various plugins</li>
 <li>Async config and plugins</li>
 </ul><div class="mt-8 shadow-lg alert alert-warning">
@@ -72,12 +69,19 @@
 <span class="text-sm font-bold">Setup.ts is still in early development!</span>
 </div>
 </div>
-		</div>
-		<div class="drawer-side">
-			<label for="nav-drawer" class="drawer-overlay"></label>
-			<ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
-				<li><a href="/quick-start">Quick Start</a></li>
-			</ul>
-		</div>
-	</div>
+    </div>
+    <div class="drawer-side">
+        <label for="nav-drawer" class="drawer-overlay"></label>
+        <ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+            <div class="pb-4">
+                
+                <li><a class="btn-ghost btn-sm " href="/quick-start">Quick Start</a></li>
+            </div><div class="pb-4">
+                <p class="text-xs font-bold uppercase py-2">Plugins</p>
+                <li><a class="btn-ghost btn-sm " href="/plugins/introduction">Introduction</a></li><li><a class="btn-ghost btn-sm " href="/plugins/advanced">Advanced Plugins</a></li>
+            </div>
+
+        </ul>
+    </div>
+</div>
 </body></html>
