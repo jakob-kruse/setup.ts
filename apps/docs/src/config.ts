@@ -1,17 +1,16 @@
 export const SITE = {
   title: "setup.ts",
-  description: "project setup in typescript",
+  description: "Project scaffolding in TypeScript",
   defaultLanguage: "en_US",
 };
 
 export const OPEN_GRAPH = {
   image: {
-    src: "https://github.com/withastro/astro/blob/main/assets/social/banner.jpg?raw=true",
+    src: "https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/public/logo.png?raw=true",
     alt:
-      "astro logo on a starry expanse of space," +
-      " with a purple saturn-like planet floating in the right foreground",
+      "setup.ts logo"
   },
-  twitter: "astrodotbuild",
+  twitter: "JakobKruseDev",
 };
 
 export const KNOWN_LANGUAGES = {
@@ -20,23 +19,33 @@ export const KNOWN_LANGUAGES = {
 
 export const GITHUB_EDIT_URL = `https://github.com/jakob-kruse/setup.ts/blob/main/apps/docs/`;
 
-// Uncomment this to enable site search.
-// See "Algolia" section of the README for more information.
-// export const ALGOLIA = {
-//   indexName: 'XXXXXXXXXX',
-//   appId: 'XXXXXXXXXX',
-//   apiKey: 'XXXXXXXXXX',
-// }
-
-export const SIDEBAR = {
-  en: [
-    { text: "", header: true },
-    { text: "Section Header", header: true },
-    { text: "Introduction", link: "en/introduction" },
-    { text: "Page 2", link: "en/page-2" },
-    { text: "Page 3", link: "en/page-3" },
-
-    { text: "Another Section", header: true },
-    { text: "Page 4", link: "en/page-4" },
-  ],
-};
+export const SIDEBAR: {
+  title?: string;
+  children?: {
+      title: string;
+      path: string;
+  }[];
+}[] = [
+  {
+    title: undefined,
+    children: [
+      {
+        title: "Quick Start",
+        path: "/quick-start",
+      }
+    ]
+  },
+  {
+    title: "Plugins",
+    children: [
+      {
+        title: "Introduction",
+        path: "/plugins/introduction",
+      },
+      {
+        title: "Advanced Plugins",
+        path: "/plugins/advanced",
+      }
+    ]
+  }
+]

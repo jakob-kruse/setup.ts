@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "prepare": "pnpm install --shamefully-hoist --ignore-scripts"
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^0.11.2",

@@ -4,4 +4,4 @@ coverage
 .pnpm-debug.log*
 .turbo
 dist
-.vscode
+.vscode/settings.json

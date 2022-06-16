@@ -23,7 +23,7 @@ Project scaffolding in TypeScript
 
 ## Features
 
-- Type-Safety and conditionals
+- Type-Safety, conditionals and comments
 - Customizable through various plugins
 - Async config and plugins
 

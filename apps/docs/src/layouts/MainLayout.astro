@@ -1,8 +1,8 @@
 ---
 import HeadCommon from '../components/HeadCommon.astro';
 import HeadSEO from '../components/HeadSEO.astro';
-import { Icon } from 'astro-icon'
-
+import Navbar from '../components/Navbar.astro';
+import Sidebar from '../components/Sidebar.astro';
 const { content = {} } = Astro.props;
 ---
 
@@ -14,34 +14,10 @@ const { content = {} } = Astro.props;
 </head>
 
 <body class="relative bg-base-200">
-	<div
-		class="absolute top-0 left-0 z-20 flex items-center w-screen h-16 pl-4 border-b border-neutral bg-opacity-95 bg-base-100">
-		<div class="flex-none lg:hidden">
-			<label for="nav-drawer" class="btn btn-square btn-ghost">
-				<Icon pack="mdi" name="menu" size="24"></Icon>
-			</label>
-		</div>
-		<a class="flex-row items-center flex-1 gap-2 px-2 mx-2 cursor-pointer avatar" href="/">
-			<div class="w-6 rounded">
-				<img src="/logo.png" />
-			</div>
-			<span class="font-medium text-md">setup.ts</span>
-		</a>
-	</div>
-
-
-	<div class="drawer drawer-mobile bg-base-100">
-		<input id="nav-drawer" type="checkbox" class="drawer-toggle" />
-		<div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
-			<slot />
-		</div>
-		<div class="drawer-side">
-			<label for="nav-drawer" class="drawer-overlay"></label>
-			<ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
-				<li><a href="/quick-start">Quick Start</a></li>
-			</ul>
-		</div>
-	</div>
+	<Navbar></Navbar>
+	<Sidebar>
+		<slot></slot>
+	</Sidebar>
 </body>
 
 </html>

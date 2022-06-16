@@ -1,0 +1,27 @@
+---
+import { SIDEBAR } from '../config';
+const currentUrl = Astro.canonicalURL.pathname.slice(0, -1)
+
+---
+
+<div class="drawer drawer-mobile bg-base-100">
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="px-8 pt-24 pb-32 prose max-w-none lg-auto md:mx-0 drawer-content">
+        <slot />
+    </div>
+    <div class="drawer-side">
+        <label for="nav-drawer" class="drawer-overlay"></label>
+        <ul class="p-4 pt-20 bg-opacity-95 menu w-60 bg-base-100 text-base-content">
+            {SIDEBAR.map(category => (
+            <div class="pb-4">
+                {category.title && <p class="text-xs font-bold uppercase py-2">{category.title}</p>}
+                {category.children && category.children.map(child => (
+                <li><a class={`btn-ghost btn-sm ${currentUrl===child.path ? 'btn-disabled' : '' }`}
+                        href={child.path}>{child.title}</a></li>
+                ))}
+            </div>
+            ))}
+
+        </ul>
+    </div>
+</div>
