@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --filter docs --shamefully-hoist
+        run: pnpm install --filter docs --shamefully-hoist --ignore-scripts
 
       - name: Build Astro
         run: pnpm run --filter docs build

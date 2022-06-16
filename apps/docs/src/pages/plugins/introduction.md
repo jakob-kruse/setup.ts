@@ -14,7 +14,7 @@ This guide will get you started with setup.ts' plugin system. We will cover how 
 
 ## Understanding the setup.ts flow
 
-To understand plugins, we have understand that setup.ts is basically a JSON generator. When setup.ts is run, it bundles and imports `setup.ts` and uses the SetupBuilder returned by `defineSetup` to "compile" the final package.json.
+To understand plugins, we have to understand that setup.ts is basically a JSON generator. When setup.ts is run, it bundles and imports `setup.ts` and uses the SetupBuilder returned by `defineSetup` to "compile" the final package.json.
 
 ### Example
 
@@ -65,7 +65,7 @@ Let's say we want a plugin that changes the version of our package. We can write
 import { definePlugin } from "@setup.ts/setup";
 
 const changeVersionPlugin = definePlugin<{ version: string }>((config) => ({
-  mergePackageJson: {
+  mergePackage: {
     version: config.version,
   },
 }));
@@ -80,7 +80,7 @@ import { defineSetup } from "@setup.ts/setup";
 const dynamicDescription = 1 == 1 ? "1 is 1, wow!" : "Im confused";
 
 const changeVersionPlugin = definePlugin<{ version: string }>(({ config }) => ({
-  mergePackageJson: {
+  mergePackage: {
     version: config.version,
   },
 }));
@@ -89,7 +89,7 @@ export default defineSetup({
   name: "my-package",
   version: "0.0.1",
   description: dynamicDescription,
-}).add(changeVersionPlugin({ version: "0.0.2" }));
+}).use(changeVersionPlugin({ version: "0.0.2" }));
 ```
 
 The resulting package.json would look like this
@@ -108,7 +108,7 @@ The resulting package.json would look like this
 The define plugin takes a function with the plugin context object as the first argument. It has the following properties
 
     - config: The config object passed to definePlugin with the type defined in the generic type.
-    - mergePackageJson: A function to merge the provided object with the resulting package.json. This is useful for conditionals inside the plugin.
+    - mergePackage: A function to merge the provided object with the resulting package.json. This is useful for conditionals inside the plugin.
     - registerFiles: A function to register files with or without a template.
 
 To learn more see [Advanced Plugins](/plugins/advanced)

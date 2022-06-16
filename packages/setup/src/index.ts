@@ -8,4 +8,4 @@ export type {
   TemplateFn,
 } from "@/plugin";
 export { defineSetup } from "@/setup";
-export type { DefineSetupOptions, SetupBuilder } from "@/setup";
+export type { SetupBuilder, SetupBuilderOptions } from "@/setup";

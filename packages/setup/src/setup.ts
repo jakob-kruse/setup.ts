@@ -1,85 +1,91 @@
-import { z } from "zod";
-import { bundleRequire } from "bundle-require";
-import { PackageJson, PackageJsonSchema } from "./types/package-json";
 import { SetupPluginBuilder } from "@/plugin";
+import {
+  PackageDefinition,
+  PackageDefinitionSchema,
+} from "@/types/package-json";
+import { bundleRequire } from "bundle-require";
 import { promises as fs } from "fs";
 import path from "path";
+import { z } from "zod";
 
-const DefineSetupOptionsSchema = z
+const SetupOptionsSchema = z
   .object({
-    validateConfig: z.boolean().default(true).or(z.undefined()),
+    validatePackageJson: z.boolean().default(true).or(z.undefined()),
   })
   .default({});
 
-export type DefineSetupOptions = z.infer<typeof DefineSetupOptionsSchema>;
-
-export type SetupBuilderPublic = {
-  add: (plugin: SetupPluginBuilder) => SetupBuilder;
-  mergeOptions: (options: Partial<DefineSetupOptions>) => SetupBuilder;
-  mergePackageJson: (packageJson: Partial<PackageJson>) => SetupBuilder;
-};
-
-export type SetupBuilderInternal = SetupBuilderPublic & {
-  build: () => Promise<PackageJson>;
-  getOptions: () => DefineSetupOptions;
-  fromFile: () => Promise<SetupBuilder>;
-};
+export type SetupBuilderOptions = z.infer<typeof SetupOptionsSchema>;
 
 export class SetupBuilder {
-  private plugins: Promise<Partial<PackageJson>>[] = [];
+  /**
+   * Plugins to apply to the package definition
+   */
+  private plugins: Promise<Partial<PackageDefinition>>[] = [];
 
   constructor(
-    private packageJson: PackageJson,
-    private options: DefineSetupOptions = {}
+    private packageDefinition: PackageDefinition,
+    private options: SetupBuilderOptions = {}
   ) {}
 
-  public getOptions(): DefineSetupOptions {
+  public getOptions(): SetupBuilderOptions {
     return this.options;
   }
 
-  public mergeOptions(options: Partial<DefineSetupOptions>): SetupBuilder {
+  public mergeOptions(options: Partial<SetupBuilderOptions>): this {
     this.options = Object.assign(this.options, options);
 
     return this;
   }
 
-  public mergePackageJson(packageJson: Partial<PackageJson>): SetupBuilder {
-    this.packageJson = Object.assign(this.packageJson, packageJson);
+  public mergePackage(packageJson: Partial<PackageDefinition>): this {
+    this.packageDefinition = Object.assign(this.packageDefinition, packageJson);
 
     return this;
   }
 
-  public add(plugin: SetupPluginBuilder): SetupBuilder {
+  /**
+   * Use a plugin to modify the package definition.
+   *
+   * @param plugin - The plugin to apply to the package definition
+   * @returns
+   */
+  public use(plugin: SetupPluginBuilder): this {
     this.plugins.push(plugin.build());
 
     return this;
   }
 
-  public async build(): Promise<PackageJson> {
-    this.mergeOptions(DefineSetupOptionsSchema.parse(this.options));
-    // this.mergeConfig({
-    //   dependencies: {
-    //     "@setup.ts/setup": "*",
-    //   },
-    // });
+  /**
+   * @internal - Do not use this method.
+   *
+   * Builds the package definition.
+   *
+   * @returns The built package definition with all plugins applied
+   */
+  public async _build(): Promise<PackageDefinition> {
+    this.mergeOptions(SetupOptionsSchema.parse(this.options));
 
-    if (this.options?.validateConfig) {
-      PackageJsonSchema.parse(this.packageJson);
+    if (this.options?.validatePackageJson) {
+      await PackageDefinitionSchema.parseAsync(this.packageDefinition);
     }
 
     if (this.plugins.length === 0) {
-      return this.packageJson;
+      return this.packageDefinition;
     }
 
     const pluginChanges = await Promise.all(this.plugins);
 
     for (const pluginChange of pluginChanges) {
-      this.mergePackageJson(pluginChange);
+      this.mergePackage(pluginChange);
     }
 
-    return this.packageJson;
+    return this.packageDefinition;
   }
 
+  /**
+   * @internal - Do not use this method.
+   * @returns A SetupBuilder
+   */
   static async fromFile(filePath: string): Promise<SetupBuilder> {
     const resolved = path.resolve(filePath);
     try {
@@ -108,6 +114,16 @@ export class SetupBuilder {
   }
 }
 
-export function defineSetup(config: PackageJson, options?: DefineSetupOptions) {
-  return new SetupBuilder(config, options) as SetupBuilderPublic;
+/**
+ * Define a project setup.
+ *
+ * @param packageDefinition - The package.json data.
+ * @param options - The options to define the setup.
+ * @returns The setup builder.
+ */
+export function defineSetup(
+  packageDefinition: PackageDefinition,
+  options?: SetupBuilderOptions
+): SetupBuilder {
+  return new SetupBuilder(packageDefinition, options);
 }

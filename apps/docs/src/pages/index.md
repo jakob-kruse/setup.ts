@@ -14,7 +14,7 @@ setup: |
 
 # setup.ts
 
-Project scaffolding in TypeScript
+Node.js project scaffolding in TypeScript
 
 [Quick Start](/quick-start) •
 [Plugins](/plugins/introduction)
@@ -24,8 +24,7 @@ Project scaffolding in TypeScript
 ## Features
 
 - Type-Safety, conditionals, and comments
-- Customizable through various plugins
-- Async config and plugins
+- Customizable through various [plugins](/plugins/introduction)
 
 <div class="mt-8 shadow-lg alert alert-warning">
   <div>

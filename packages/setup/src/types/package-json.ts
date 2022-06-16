@@ -37,7 +37,7 @@ const Dependency = z
     "Dependencies are specified with a simple hash of package name to version range. The version range is a string which has one or more space-separated descriptors. Dependencies can also be identified with a tarball or git URL."
   );
 
-export const PackageJsonSchema = z
+export const PackageDefinitionSchema = z
   .object({
     name: z
       .string()
@@ -466,8 +466,14 @@ export const PackageJsonSchema = z
   })
   .passthrough();
 
-export type PackageJson = z.infer<typeof PackageJsonSchema>;
+export type PackageDefinition = z.infer<typeof PackageDefinitionSchema>;
 
+/**
+ * Validate the options of a package.json file
+ *
+ * @param evilData - The data to validate
+ * @returns The validated options
+ */
 export function validatePackage(evilData: unknown) {
-  return PackageJsonSchema.safeParse(evilData);
+  return PackageDefinitionSchema.safeParse(evilData);
 }

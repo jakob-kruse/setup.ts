@@ -1,12 +1,12 @@
 import { definePlugin } from "@";
-import { defineSetup, SetupBuilderInternal } from "@/setup";
-import { PackageJson } from "@/types/package-json";
+import { defineSetup } from "@/setup";
+import { PackageDefinition } from "@/types/package-json";
 
 export const basicSetup = (
-  config: PackageJson = {
+  config: PackageDefinition = {
     name: "test-name",
     version: "1.0.0",
   }
-) => defineSetup(config) as SetupBuilderInternal;
+) => defineSetup(config);
 
 export const emptyPlugin = () => definePlugin(() => ({}))();

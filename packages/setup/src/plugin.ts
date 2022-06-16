@@ -1,36 +1,66 @@
-import { PackageJson } from "@/types/package-json";
-import { MaybePromise } from "@/types/util";
-import { join } from "path";
+import { MaybePromise } from "@/types";
+import { PackageDefinition } from "@/types/package-json";
 import { promises as fs } from "fs";
+import { join } from "path";
 
+/**
+ * The function the plugin developer defines to build the package definition.
+ */
 export type SetupPluginBuilderFn<TPluginConfig> = (
   context: SetupPluginBuilderContext<TPluginConfig>
 ) => SetupPluginResult<TPluginConfig>;
 
+/**
+ * Returned by the plugin builder function.
+ * Should be called by the plugin user with the desired options.
+ */
+export type SetupPluginFactory<TPluginConfig> = (
+  config?: TPluginConfig
+) => SetupPluginBuilder<TPluginConfig>;
+
+/**
+ * A function to create a file. Either read it from the file system or create a custom string.
+ */
 export type TemplateFn<TPluginConfig> = (
   config: TPluginConfig
 ) => MaybePromise<string>;
 
+/**
+ * Information about a file. Used when applying the plugin.
+ */
 export type SetupPluginFile<TPluginConfig> = {
   template: TemplateFn<TPluginConfig>;
   outputPath: string;
 };
 
-export type SetupPluginResult<TPluginConfig> = {
-  mergePackageJson?: Partial<PackageJson>;
+/**
+ * Return type of {@link SetupPluginBuilderFn}. Could be void, when using the function syntax.
+ */
+export type SetupPluginResult<TPluginConfig> = void | {
+  mergePackage?: Partial<PackageDefinition>;
   registerFiles?: SetupPluginFile<TPluginConfig>[];
-} | void;
+};
 
+/**
+ * Context passed to the {@link SetupPluginBuilderFn}.
+ */
 export type SetupPluginBuilderContext<TPluginConfig> = {
   registerFile: (file: SetupPluginFile<TPluginConfig>) => void;
-  mergePackageJson: (config: Partial<PackageJson>) => void;
+  mergePackage: (config: Partial<PackageDefinition>) => void;
   config: TPluginConfig;
 };
 
 export class SetupPluginBuilder<TPluginConfig = unknown> {
+  /**
+   * Queued actions like mergePackage or registerFile that could be async. This way the builder can be used synchronously
+   */
   private actions: (() => MaybePromise<void>)[] = [];
 
-  private packageJsonMerge: Partial<PackageJson> = {};
+  /**
+   * The data to be merged with the package object when the build is done.
+   */
+  private packageJsonMerge: Partial<PackageDefinition> = {};
+
   constructor(
     private config: TPluginConfig = {} as TPluginConfig,
     private builderFn: SetupPluginBuilderFn<TPluginConfig>
@@ -49,16 +79,16 @@ export class SetupPluginBuilder<TPluginConfig = unknown> {
     });
   }
 
-  mergePackageJson(mergeData: Partial<PackageJson>) {
+  mergePackage(mergeData: Partial<PackageDefinition>) {
     this.queueAction(() => {
       this.packageJsonMerge = Object.assign(this.packageJsonMerge, mergeData);
     });
   }
 
-  public async build(): Promise<Partial<PackageJson>> {
+  public async build(): Promise<Partial<PackageDefinition>> {
     const builderContext: SetupPluginBuilderContext<TPluginConfig> = {
       registerFile: this.registerFile.bind(this),
-      mergePackageJson: this.mergePackageJson.bind(this),
+      mergePackage: this.mergePackage.bind(this),
       // TODO: maybe clone
       config: this.config,
     };
@@ -66,8 +96,8 @@ export class SetupPluginBuilder<TPluginConfig = unknown> {
     const builderResult = this.builderFn(builderContext);
 
     if (builderResult) {
-      if (builderResult.mergePackageJson) {
-        this.mergePackageJson(builderResult.mergePackageJson);
+      if (builderResult.mergePackage) {
+        this.mergePackage(builderResult.mergePackage);
       }
 
       if (builderResult.registerFiles) {
@@ -81,17 +111,24 @@ export class SetupPluginBuilder<TPluginConfig = unknown> {
   }
 }
 
+/**
+ * @param templateFn - The template function to use
+ * @returns A builder for a setup plugin
+ */
 export function defineTemplate<TPluginConfig = unknown>(
   templateFn: TemplateFn<TPluginConfig>
-) {
+): TemplateFn<TPluginConfig> {
   return (config: TPluginConfig) => {
     return templateFn(config);
   };
 }
 
+/**
+ * @param builderFn - The builder function to use. Should use function syntax or return changes.
+ */
 export function definePlugin<TPluginConfig = unknown>(
   builderFn: SetupPluginBuilderFn<TPluginConfig>
-) {
+): SetupPluginFactory<TPluginConfig> {
   return (config?: TPluginConfig) => {
     return new SetupPluginBuilder<TPluginConfig>(config, builderFn);
   };

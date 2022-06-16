@@ -1,13 +1,18 @@
 {
   "name": "@setup.ts/setup",
-  "version": "0.0.1",
-  "description": "setup.py but with typescript",
-  "module": "dist/index.js",
+  "version": "0.0.1-alpha",
+  "description": "Node.js project scaffolding in TypeScript",
+  "module": "dist/index.mjs",
   "main": "dist/index.js",
-  "browser": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
     "setup.ts": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",
@@ -16,7 +21,6 @@
     "test": "vitest run",
     "test:coverage": "vitest --coverage",
     "lint": "eslint {src,test}/**/*.ts",
-    "lint:fix": "eslint {src,test}/**/*.ts --fix",
     "prepublish": "npm run build"
   },
   "keywords": [],

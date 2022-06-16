@@ -8,8 +8,8 @@ import { join } from "path";
 const cli = cac("setup.ts");
 
 cli
-  .command("run", "Compile package.ts to package.json")
-  .option("-p, --path <path>", "Path to package.ts", {
+  .command("run", "Compile setup.ts to package.json")
+  .option("-p, --path <path>", "Path to setup.ts", {
     default: "setup.ts",
   })
   .option("-o, --out <path>", "Output for compiled package.json", {
@@ -18,25 +18,27 @@ cli
   .action(async (options: { path: string; out: string }) => {
     const packageTsPath = join(process.cwd(), options.path);
     if (!(await fileExists(packageTsPath))) {
-      console.log("No package.ts found");
+      console.log("No setup.ts found");
       return;
     }
 
     const setupBuilder = await SetupBuilder.fromFile(packageTsPath);
-    const compiled = await setupBuilder.build();
+    const compiled = await setupBuilder._build();
 
     await fs.writeFile(
       join(process.cwd(), options.out),
       JSON.stringify(compiled, null, 2)
     );
+
+    console.log(`Successfully wrote to ${options.out}`);
   });
 
 cli
-  .command("generate", "Generate a package.ts from a package.json")
+  .command("generate", "Generate a setup.ts from a package.json")
   .option("-p, --path <path>", "Path to package.json", {
     default: "package.json",
   })
-  .option("-o, --out <path>", "Output for compiled package.ts", {
+  .option("-o, --out <path>", "Output for compiled setup.ts", {
     default: "setup.ts",
   })
   .action(async (options: { path: string; out: string }) => {
@@ -57,6 +59,8 @@ cli
 export default defineSetup(${content});`;
 
     await fs.writeFile(packageTsPath, template(packageJsonContent));
+
+    console.log(`Successfully wrote to ${options.out}`);
   });
 
 cli.parse();

@@ -1,6 +1,6 @@
 import { definePlugin } from "@";
 import { SetupBuilder } from "@/setup";
-import { PackageJson } from "@/types/package-json";
+import { PackageDefinition } from "@/types/package-json";
 import { describe, expect, it } from "vitest";
 import { basicSetup } from "./util";
 
@@ -19,10 +19,10 @@ describe("SetupBuilder", () => {
       const setupBuilder = basicSetup();
 
       setupBuilder.mergeOptions({
-        validateConfig: false,
+        validatePackageJson: false,
       });
 
-      expect(setupBuilder.getOptions().validateConfig).toBe(false);
+      expect(setupBuilder.getOptions().validatePackageJson).toBe(false);
     });
   });
 
@@ -34,7 +34,15 @@ describe("SetupBuilder", () => {
 
       expect(setupBuilder).toBeDefined();
       // TODO: Find out why this is not working. setupBuilder is not an instance of SetupBuilder
-      //   expect(setupBuilder).toBeInstanceOf(SetupBuilder);
+      // expect(setupBuilder).toBeInstanceOf(SetupBuilder);
+
+      expect(await setupBuilder._build()).toMatchInlineSnapshot(`
+        {
+          "description": "test-desc",
+          "name": "test-name",
+          "version": "1.0.0",
+        }
+      `);
     });
 
     it("should throw an error if the file does not exist", async () => {
@@ -69,33 +77,33 @@ describe("SetupBuilder", () => {
     });
   });
 
-  describe("add()", () => {
+  describe("use()", () => {
     it("should add a plugin", async () => {
       const expectedDescription = "new description";
       const setupBuilder = basicSetup();
       const changeDescriptionPlugin = definePlugin(() => {
         return {
-          mergePackageJson: {
+          mergePackage: {
             description: expectedDescription,
           },
         };
       });
-      setupBuilder.add(changeDescriptionPlugin());
+      setupBuilder.use(changeDescriptionPlugin());
 
-      const config = await setupBuilder.build();
+      const config = await setupBuilder._build();
 
       expect(config.description).toBe(expectedDescription);
     });
 
     it("should not change without plugins", async () => {
-      const expectedConfig: PackageJson = {
+      const expectedConfig: PackageDefinition = {
         name: "test-name",
         version: "1.0.0",
       };
 
       const setupBuilder = basicSetup(expectedConfig);
 
-      const config = await setupBuilder.build();
+      const config = await setupBuilder._build();
 
       expect(config).toBe(expectedConfig);
     });

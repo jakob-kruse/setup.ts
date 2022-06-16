@@ -1,6 +1,18 @@
 import { definePlugin } from "@";
-import { describe, it, expect } from "vitest";
+import { promises } from "fs";
+import { join } from "path";
+import { describe, expect, it, vi } from "vitest";
 import { basicSetup } from "./util";
+
+vi.mock("fs/promises", () => ({
+  writeFile: vi.fn(),
+}));
+const writeFileSpy = vi
+  .spyOn(promises, "writeFile")
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  .mockImplementation(async (_path, _content, _encoding) => {
+    return;
+  });
 
 describe("PluginBuilder", () => {
   describe("definePlugin", () => {
@@ -12,15 +24,17 @@ describe("PluginBuilder", () => {
   describe("functional syntax", () => {
     it("should merge options", async () => {
       const setup = basicSetup();
-      const changeDescriptionPlugin = definePlugin(({ mergePackageJson }) => {
-        mergePackageJson({
-          description: "functional hello!",
-        });
-      });
+      const changeDescriptionPlugin = definePlugin(
+        ({ mergePackage: mergePackageJson }) => {
+          mergePackageJson({
+            description: "functional hello!",
+          });
+        }
+      );
 
-      setup.add(changeDescriptionPlugin());
+      setup.use(changeDescriptionPlugin());
 
-      const config = await setup.build();
+      const config = await setup._build();
 
       expect(config).toMatchInlineSnapshot(`
         {
@@ -33,18 +47,27 @@ describe("PluginBuilder", () => {
 
     it("should register files", async () => {
       const setup = basicSetup();
+
+      const outputPath = "test.txt";
+      const templateContent = "hello!";
       const registerFilePlugin = definePlugin(({ registerFile }) => {
         registerFile({
           template() {
-            return "hello!";
+            return templateContent;
           },
-          outputPath: "test.txt",
+          outputPath,
         });
       });
 
-      setup.add(registerFilePlugin());
+      setup.use(registerFilePlugin());
 
-      const config = await setup.build();
+      const config = await setup._build();
+
+      expect(writeFileSpy).toHaveBeenCalledWith(
+        join(process.cwd(), outputPath),
+        templateContent,
+        "utf-8"
+      );
 
       expect(config).toMatchInlineSnapshot(`
         {
@@ -60,15 +83,15 @@ describe("PluginBuilder", () => {
       const setup = basicSetup();
       const changeDescriptionPlugin = definePlugin(() => {
         return {
-          mergePackageJson: {
+          mergePackage: {
             description: "declarative hello!",
           },
         };
       });
 
-      setup.add(changeDescriptionPlugin());
+      setup.use(changeDescriptionPlugin());
 
-      const config = await setup.build();
+      const config = await setup._build();
 
       expect(config).toMatchInlineSnapshot(`
         {

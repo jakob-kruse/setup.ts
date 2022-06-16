@@ -4,24 +4,14 @@
 
 # setup.ts
 
-setup.ts let's you write your package.json (and other configs files!) in typescript
+Node.js Project scaffolding in TypeScript
 
-This provides type-safety and much higher customizability
-
-[Getting started](#getting-started) •
-[Installation](#installation) •
-[Configuration](#configuration) •
+[Quick Start](https://setup.ts.jakob-kruse.de/quick-start/) •
+[Plugins](https://setup.ts.jakob-kruse.de/plugins/introduction/)
 
 </div>
 
-## Getting Started
+## Features
 
-TBD
-
-## Installation
-
-TBD
-
-## Configuration
-
-TBD
+- Type-Safety, conditionals, and comments
+- Customizable through various [plugins](https://setup.ts.jakob-kruse.de/plugins/introduction/)
