@@ -21,7 +21,8 @@
     "test": "vitest run",
     "test:coverage": "vitest --coverage",
     "lint": "eslint {src,test}/**/*.ts",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "setup": "setup.ts run"
   },
   "keywords": [],
   "author": {
@@ -33,6 +34,7 @@
     "node": ">=14"
   },
   "devDependencies": {
+    "@setup.ts/setup": "workspace:*",
     "@types/node": "^17.0.42",
     "c8": "^7.11.3",
     "eslint": "^8.17.0",

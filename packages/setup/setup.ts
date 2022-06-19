@@ -1,0 +1,54 @@
+import { defineSetup } from "@setup.ts/setup";
+
+export default defineSetup({
+  name: "@setup.ts/setup",
+  version: "0.0.1-alpha",
+  description: "Node.js project scaffolding in TypeScript",
+  module: "dist/index.mjs",
+  main: "dist/index.js",
+  types: "dist/index.d.ts",
+  bin: {
+    "setup.ts": "dist/cli.js",
+  },
+  files: ["dist"],
+  publishConfig: {
+    access: "public",
+  },
+  scripts: {
+    build: "tsup",
+    "build:watch": "tsup --watch",
+    dev: "vitest dev",
+    test: "vitest run",
+    "test:coverage": "vitest --coverage",
+    lint: "eslint {src,test}/**/*.ts",
+    prepublish: "npm run build",
+    setup: "setup.ts run",
+  },
+  keywords: [],
+  author: {
+    name: "Jakob Kruse",
+    email: "contact@jakob-kruse.de",
+  },
+  license: "ISC",
+  engines: {
+    node: ">=14",
+  },
+  devDependencies: {
+    "@setup.ts/setup": "workspace:*",
+    "@types/node": "^17.0.42",
+    c8: "^7.11.3",
+    eslint: "^8.17.0",
+    "eslint-config-custom": "workspace:*",
+    tsup: "^6.1.2",
+    typescript: "^4.7.3",
+    vite: "^2.9.12",
+    "vite-tsconfig-paths": "^3.5.0",
+    vitest: "^0.14.2",
+  },
+  dependencies: {
+    "bundle-require": "^3.0.4",
+    cac: "^6.7.12",
+    esbuild: "^0.14.43",
+    zod: "^3.17.3",
+  },
+});

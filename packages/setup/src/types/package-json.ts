@@ -6,6 +6,7 @@ const Person = z
     url: z.string().url(),
     email: z.string().email(),
   })
+  .partial()
   .or(z.string())
   .describe(
     "A person who has been involved in creating or maintaining this package."
@@ -104,7 +105,7 @@ export const PackageDefinitionSchema = z
       .describe(
         'DEPRECATED: Instead, use SPDX expressions, like this: { "license": "ISC" } or { "license": "(MIT OR Apache-2.0)" } see: \'https://docs.npmjs.com/files/package.json#license\'.'
       ),
-    author: Person.optional(),
+    author: Person.or(z.undefined()),
     contributors: z
       .array(Person)
       .optional()
@@ -223,88 +224,8 @@ export const PackageDefinitionSchema = z
         "Used to inform about ways to help fund development of the package."
       ),
     scripts: z
-      .object({
-        lint: z
-          .string()
-          .describe("Run code quality tools, e.g. ESLint, TSLint, etc."),
-        prepublish: z
-          .string()
-          .describe(
-            "Run BEFORE the package is published (Also run on local npm install without any arguments)."
-          ),
-        prepare: z
-          .string()
-          .describe(
-            "Run both BEFORE the package is packed and published, and on local npm install without any arguments. This is run AFTER prepublish, but BEFORE prepublishOnly."
-          ),
-        prepublishOnly: z
-          .string()
-          .describe(
-            "Run BEFORE the package is prepared and packed, ONLY on npm publish."
-          ),
-        prepack: z
-          .string()
-          .describe(
-            "run BEFORE a tarball is packed (on npm pack, npm publish, and when installing git dependencies)."
-          ),
-        postpack: z
-          .string()
-          .describe(
-            "Run AFTER the tarball has been generated and moved to its final destination."
-          ),
-        publish: z
-          .string()
-          .describe(
-            "Publishes a package to the registry so that it can be installed by name. See https://docs.npmjs.com/cli/v8/commands/npm-publish"
-          ),
-        postpublish: z.string().describe("Run AFTER the package is published."),
-        preinstall: z.string().describe("Run BEFORE the package is installed."),
-        install: z.string().describe("Run AFTER the package is installed."),
-        postinstall: z.string().describe("Run AFTER the package is installed."),
-        preuninstall: z
-          .string()
-          .describe("Run BEFORE the package is uninstalled."),
-        uninstall: z
-          .string()
-          .describe("Run BEFORE the package is uninstalled."),
-        postuninstall: z
-          .string()
-          .describe("Run AFTER the package is uninstalled."),
-        preversion: z.string().describe("Run BEFORE bump the package version."),
-        version: z.string().describe("Run BEFORE bump the package version."),
-        postversion: z.string().describe("Run AFTER bump the package version."),
-        pretest: z.string().describe("Run BEFORE the 'npm test' command."),
-        test: z.string().describe("Run by the 'npm test' command."),
-        posttest: z.string().describe("Run AFTER the 'npm test' command."),
-        prestop: z.string().describe("Run BEFORE the 'npm stop' command."),
-        stop: z.string().describe("Run by the 'npm stop' command."),
-        poststop: z.string().describe("Run AFTER the 'npm stop' command."),
-        prestart: z.string().describe("Run BEFORE the 'npm start' command."),
-        start: z.string().describe("Run by the 'npm start' command."),
-        poststart: z.string().describe("Run AFTER the 'npm start' command."),
-        prerestart: z
-          .string()
-          .describe(
-            "Run BEFORE the 'npm restart' command. Note: 'npm restart' will run the stop and start scripts if no restart script is provided."
-          ),
-        restart: z
-          .string()
-          .describe(
-            "Run by the 'npm restart' command. Note: 'npm restart' will run the stop and start scripts if no restart script is provided."
-          ),
-        postrestart: z
-          .string()
-          .describe(
-            "Run AFTER the 'npm restart' command. Note: 'npm restart' will run the stop and start scripts if no restart script is provided."
-          ),
-        serve: z
-          .string()
-          .describe("Start dev server to serve application files"),
-      })
-      .partial()
+      .object({})
       .passthrough()
-      .default({})
-      .or(z.undefined())
       .describe(
         "The 'scripts' member is an object hash of script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point."
       ),
@@ -352,10 +273,7 @@ export const PackageDefinitionSchema = z
       .optional(),
     engines: z
       .object({
-        node: z
-          .string()
-          .regex(new RegExp("^(>=?|<=?)\\d+\\.\\d+\\.\\d+(-.+)?"))
-          .optional(),
+        node: z.string().optional(),
       })
       .partial()
       .passthrough()
