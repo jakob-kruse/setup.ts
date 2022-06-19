@@ -226,6 +226,8 @@ export const PackageDefinitionSchema = z
     scripts: z
       .object({})
       .passthrough()
+      .default({})
+      .or(z.undefined())
       .describe(
         "The 'scripts' member is an object hash of script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point."
       ),

@@ -60,7 +60,6 @@ importers:
 
   packages/setup:
     specifiers:
-      '@setup.ts/setup': workspace:*
       '@types/node': ^17.0.42
       bundle-require: ^3.0.4
       c8: ^7.11.3
@@ -80,7 +79,6 @@ importers:
       esbuild: 0.14.43
       zod: 3.17.3
     devDependencies:
-      '@setup.ts/setup': 'link:'
       '@types/node': 17.0.42
       c8: 7.11.3
       eslint: 8.17.0

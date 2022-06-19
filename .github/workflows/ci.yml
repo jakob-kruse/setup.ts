@@ -1,59 +1,11 @@
-name: CI
+name: CI - Build and Test
 
 on:
   push:
-    branches: ["main"]
+    branches: ["*"]
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  build:
-    name: Build and Test
-    timeout-minutes: 15
-    runs-on: ${{ matrix.os }}
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    steps:
-      - name: Check out your repository using git
-        uses: actions/checkout@v3
-
-      - name: Install Node.js v18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Setup Pnpm v7.2.1
-        uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.2.1
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Build
-        run: pnpm build --filter "./packages/*"
-
-      - name: Test
-        run: pnpm test
+  test-and-build:
+    uses: jakob-kruse/setup.ts/.github/workflows/test.yml@main

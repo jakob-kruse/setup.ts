@@ -1,4 +1,4 @@
-import { defineSetup } from "@setup.ts/setup";
+import { defineSetup } from "./src/index";
 
 export default defineSetup({
   name: "@setup.ts/setup",
@@ -22,7 +22,8 @@ export default defineSetup({
     "test:coverage": "vitest --coverage",
     lint: "eslint {src,test}/**/*.ts",
     prepublish: "npm run build",
-    setup: "setup.ts run",
+    setup: "dist/cli.js run",
+    "setup:generate": "dist/cli.js run",
   },
   keywords: [],
   author: {
@@ -34,7 +35,6 @@ export default defineSetup({
     node: ">=14",
   },
   devDependencies: {
-    "@setup.ts/setup": "workspace:*",
     "@types/node": "^17.0.42",
     c8: "^7.11.3",
     eslint: "^8.17.0",

@@ -1,14 +1,11 @@
-name: Github Pages Astro CI
-
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
-
-    permissions:
-      contents: write
+  build:
+    name: Build and Test
+    timeout-minutes: 15
+    runs-on: "ubuntu-latest"
 
     steps:
       - name: Check out your repository using git
@@ -39,14 +36,13 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --filter docs --shamefully-hoist --ignore-scripts
+        run: pnpm install
 
-      - name: Build Astro
-        run: pnpm run --filter docs build
+      - name: Lint
+        run: pnpm lint
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./apps/docs/dist
-          cname: setup.ts.jakob-kruse.de
+      - name: Build
+        run: pnpm build --filter "./packages/*"
+
+      - name: Test
+        run: pnpm test
