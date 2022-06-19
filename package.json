@@ -11,9 +11,11 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "ci": "turbo run build lint test",
-    "dev": "turbo run dev --parallel"
+    "dev": "turbo run dev --parallel",
+    "ci:publish": "pnpm run build && pnpm changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.23.0",
     "eslint": "^8.17.0",
     "eslint-config-custom": "workspace:*",
     "prettier": "^2.5.1",

@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "browser": "dist/index.js",
   "types": "dist/index.d.ts",
+  "private": true,
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch"
