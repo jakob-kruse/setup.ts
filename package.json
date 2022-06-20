@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Write your package.json in typescript",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "build": "turbo run build",
     "lint": "turbo run lint",
