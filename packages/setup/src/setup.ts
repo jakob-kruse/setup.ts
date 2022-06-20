@@ -49,8 +49,9 @@ export class SetupBuilder {
    * @param plugin - The plugin to apply to the package definition
    * @returns
    */
-  public use(plugin: SetupPluginBuilder): this {
-    this.plugins.push(plugin.build());
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public use(plugin: any): this {
+    this.plugins.push((plugin as SetupPluginBuilder).build());
 
     return this;
   }

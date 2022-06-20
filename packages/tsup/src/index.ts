@@ -4,12 +4,15 @@ import type { Options as TsupOptions } from "tsup";
 
 export type TsupPluginConfig = {
   tsup?: TsupOptions;
+  tsupVersion?: string;
 };
 
-export const tsupPlugin = definePlugin<TsupPluginConfig>(() => {
+export const tsupPlugin = definePlugin<TsupPluginConfig>(({ config }) => {
   return {
-    mergePackageJson: {
-      description: "new description of tsup",
+    mergePackage: {
+      devDependencies: {
+        tsup: config.tsupVersion || "latest",
+      },
     },
     registerFiles: [
       {
