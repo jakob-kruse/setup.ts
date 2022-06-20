@@ -1,0 +1,15 @@
+{
+  "name": "setup.ts-example-basic",
+  "version": "1.0.0",
+  "description": "Basic setup.ts example",
+  "main": "index.js",
+  "scripts": {
+    "start": "setup.ts was ran at 5:09:30 PM"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@setup.ts/setup": "^0.0.1"
+  }
+}
