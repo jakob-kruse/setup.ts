@@ -1,6 +1,6 @@
 {
   "name": "@setup.ts/setup",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1",
   "description": "Node.js project scaffolding in TypeScript",
   "module": "dist/index.mjs",
   "main": "dist/index.js",

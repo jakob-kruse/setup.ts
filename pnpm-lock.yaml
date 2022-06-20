@@ -94,16 +94,8 @@ importers:
   packages/tsup:
     specifiers:
       '@setup.ts/setup': workspace:*
-      '@types/node': ^17.0.42
-      esbuild: ^0.14.43
-      tsup: ^6.1.2
-      typescript: ^4.7.3
-    devDependencies:
+    dependencies:
       '@setup.ts/setup': link:../setup
-      '@types/node': 17.0.42
-      esbuild: 0.14.43
-      tsup: 6.1.2_typescript@4.7.3
-      typescript: 4.7.3
 
 packages:
 
