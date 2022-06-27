@@ -1,4 +1,4 @@
-import { definePlugin } from "@setup.ts/setup";
+import { definePlugin, definePrompt } from "@setup.ts/setup";
 import tsupConfigTemplate from "./tsup-config";
 import type { Options as TsupOptions } from "tsup";
 
@@ -9,6 +9,30 @@ export type TsupPluginConfig = {
     configPath?: string;
   };
 };
+
+const prompt = definePrompt(
+  [
+    {
+      type: "text",
+      message: "Tsup Config Location",
+      name: "configPath",
+      initial: "tsup.config.ts",
+    },
+    {
+      type: "text",
+      message: "Tsup version",
+      name: "version",
+      initial: "latest",
+    },
+  ],
+  (data) =>
+    ({
+      setup: {
+        configPath: data.configPath,
+        tsupVersion: data.version,
+      },
+    } as TsupPluginConfig)
+);
 
 export const tsupPlugin = definePlugin<TsupPluginConfig>(({ config }) => {
   return {
@@ -24,6 +48,6 @@ export const tsupPlugin = definePlugin<TsupPluginConfig>(({ config }) => {
       },
     ],
   };
-});
+}, prompt);
 
 export default tsupPlugin;

@@ -1,4 +1,4 @@
-export { definePlugin, defineTemplate } from "@/plugin";
+export { definePlugin, defineTemplate, definePrompt } from "@/plugin";
 export type {
   SetupPluginBuilder,
   SetupPluginBuilderContext,

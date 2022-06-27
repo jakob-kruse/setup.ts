@@ -2,7 +2,11 @@ import { MaybePromise } from "@/types";
 import { PackageDefinition } from "@/types/package-json";
 import { promises as fs } from "fs";
 import { join } from "path";
-
+import {
+  type Answers,
+  type Options as PromptsOptions,
+  type PromptObject,
+} from "prompts";
 /**
  * The function the plugin developer defines to build the package definition.
  */
@@ -63,8 +67,13 @@ export class SetupPluginBuilder<TPluginConfig = unknown> {
 
   constructor(
     private config: TPluginConfig = {} as TPluginConfig,
-    private builderFn: SetupPluginBuilderFn<TPluginConfig>
+    private builderFn: SetupPluginBuilderFn<TPluginConfig>,
+    private prompt?: ReturnType<typeof definePrompt>
   ) {}
+
+  public getPrompt() {
+    return this.prompt;
+  }
 
   private queueAction(action: () => MaybePromise<void>) {
     this.actions.push(action.bind(this));
@@ -127,9 +136,22 @@ export function defineTemplate<TPluginConfig = unknown>(
  * @param builderFn - The builder function to use. Should use function syntax or return changes.
  */
 export function definePlugin<TPluginConfig = unknown>(
-  builderFn: SetupPluginBuilderFn<TPluginConfig>
+  builderFn: SetupPluginBuilderFn<TPluginConfig>,
+  prompt?: ReturnType<typeof definePrompt>
 ): SetupPluginFactory<TPluginConfig> {
   return (config?: TPluginConfig) => {
-    return new SetupPluginBuilder<TPluginConfig>(config, builderFn);
+    return new SetupPluginBuilder<TPluginConfig>(config, builderFn, prompt);
+  };
+}
+
+export function definePrompt<TInput extends string = string>(
+  prompt: PromptObject<TInput> | Array<PromptObject<TInput>>,
+  transformer: (data: Answers<TInput>) => unknown,
+  options?: PromptsOptions
+) {
+  return {
+    prompt,
+    transformer,
+    options,
   };
 }

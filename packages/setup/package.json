@@ -1,12 +1,12 @@
 {
   "name": "@setup.ts/setup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js project scaffolding in TypeScript",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "setup.ts": "dist/cli.js"
+    "setup.ts": "dist/cli/index.js"
   },
   "files": [
     "dist"
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.42",
+    "@types/prompts": "^2.0.14",
     "c8": "^7.11.3",
     "eslint": "^8.17.0",
     "eslint-config-custom": "workspace:*",
@@ -49,6 +50,7 @@
     "bundle-require": "^3.0.4",
     "cac": "^6.7.12",
     "esbuild": "^0.14.43",
+    "prompts": "^2.4.2",
     "zod": "^3.17.3"
   }
 }
