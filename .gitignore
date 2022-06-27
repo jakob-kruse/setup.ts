@@ -5,3 +5,4 @@ coverage
 .turbo
 dist
 .vscode/settings.json
+.idea

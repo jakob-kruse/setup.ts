@@ -9,7 +9,7 @@
     "test": "turbo run test",
     "ci": "turbo run build lint test",
     "dev": "turbo run dev --parallel",
-    "ci:publish": "pnpm run build && pnpm changeset publish"
+    "ci:version": "pnpm run build && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.23.0",

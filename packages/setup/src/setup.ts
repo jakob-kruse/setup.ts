@@ -89,14 +89,15 @@ export class SetupBuilder {
    */
   static async fromFile(filePath: string): Promise<SetupBuilder> {
     const resolved = path.resolve(filePath);
+    let fileStats;
     try {
-      const fileStat = await fs.stat(resolved);
-
-      if (!fileStat.isFile()) {
-        throw new Error(`"${resolved}" is not a file`);
-      }
+      fileStats = await fs.stat(resolved);
     } catch (error) {
       throw new Error(`"${resolved}" does not exist`);
+    }
+
+    if (!fileStats.isFile()) {
+      throw new Error(`"${resolved}" is not a file`);
     }
 
     const file = await bundleRequire({
